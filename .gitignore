@@ -1,1 +1,4 @@
-*.DS_Store
+.DS_Store
+.DYSM
+**/.DS_Store
+**/.DYSM
