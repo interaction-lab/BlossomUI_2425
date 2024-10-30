@@ -7,33 +7,60 @@
         <title>Blossom 2024</title>
         <!--inline CSS-->
         <style> 
-            body { 
+            body 
+            { 
                 font-family: Helvetica, sans-serif; 
                 margin: 0; 
                 padding: 20px; 
+                background-color: #b2b2ef;
+
+                /*to center the menu / boxes on the page*/
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
             }
 
-            #app 
-            { 
-                max-width: 800px; 
+            #homepage
+            {
+                width: 100%;
+                max-width: 600px;
                 margin: 0 auto; 
             }
 
             #menu 
             { 
-                display: grid; 
-                grid-template-columns: repeat(2, 1fr);
-                grid-gap: 20px;
-                padding: 20px;
-                background-color: #b2b2ef;
-                margin: 5px; 
+                display: flex;
                 padding: 10px; 
                 font-size: 16px;
             }
 
-            #button
+            .button
             { 
+                background-color: #927B7B;
+                padding: 20px;
+                margin: 5px;
+                border-radius: 35px;
+                text-align: center;
+                width: 100px;
+                height:100px;
 
+                /*adding the following properties for centering:*/
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .button h2
+            {
+                margin: 0;
+                color: white;
+                font-size: 1.5em;
+            }
+
+            .button:hover 
+            {
+                background-color: #745959;
             }
         </style>
     <!--end of inline CSS-->
@@ -42,6 +69,22 @@
     <body>
         <div id = "homepage">
             <div id = "menu">
+                <div class = "button" onclick = "navigateTo('settings')">
+                    <!--<div class = "icon"></div> INSERT CODE TO PUT PNG ON BUTTON HERE-->
+                    <h2>Settings</h2>
+                </div>
+
+                <div class = "button">
+                    <h2>Study</h2>
+                </div>
+
+                <div class = "button">
+                    <h2>Training</h2>
+                </div>
+
+                <div class = "button">
+                    <h2>Extras</h2>
+                </div>
 
             </div>
         </div>
