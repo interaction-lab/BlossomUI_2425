@@ -2,10 +2,18 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { LandingComponent } from './landing/landing.component';
+import { StudyComponent } from './study/study.component';
+import { TrainingComponent } from './training/training.component';
+import { SettingsComponent } from './settings/settings.component';
+import { ExtraComponent } from './extra/extra.component';
 
 const routes: Routes = 
 [  {path: '', redirectTo: '/landing', pathMatch: 'full' }, //default route --> landing page
    {path: 'landing', component: LandingComponent }, 
+   {path: 'study', component: StudyComponent },
+   {path: 'training', component: TrainingComponent},
+   {path: 'settings', component: SettingsComponent},
+   {path: 'extra', component: ExtraComponent},
    {path :'**', redirectTo: '/landing'} //wildcard route for 404
 ];
 
