@@ -5,19 +5,36 @@
   To learn more about this file see: https://angular.io/config/solution-tsconfig.
 */
 {
+  "compileOnSave": false,
+  
   "compilerOptions": {
-    "esModuleInterop": true
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "ES2022", 
+    "module": "ES2022",
+    "lib": [
+      "ES2022",
+      "dom"
+    ],
+    "useDefineForClassFields": true,
   },
-  "files": [],
-  "references": [
-    {
-      "path": "./tsconfig.app.json"
-    },
-    {
-      "path": "./tsconfig.spec.json"
-    },
-    {
-      "path": "./e2e/tsconfig.json"
-    }
-]
+
+"angularCompilerOptions": {
+  "enableI18nLegacyMessageIdFormat": false,
+  "strictInjectionParameters": true,
+  "strictInputAccessModifiers": true,
+  "strictTemplates": true
+}
 }
