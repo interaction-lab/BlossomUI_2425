@@ -65,20 +65,25 @@
     </head>
 
     <body>
-        <div id = "studypage">
-            <div id = "menu">
-                <div class = "button">
-                    <h2>Start Session</h2>
-                </div>
-
-                <div class = "button">
-                    <h2>Pause Session</h2>
-                </div>
-
-                <div class = "button">
-                    <h2>End Session</h2>
-                </div>
+        <div id="studypage">
+            <div id="menu">
+              <div class="timer-display">
+                <h2>Study Timer</h2>
+                <div class="time">{{display}}</div>
+              </div>
+          
+              <div class="button" (click)="startTimer()" [class.active]="isRunning">
+                <h2>Start Session</h2>
+              </div>
+          
+              <div class="button" (click)="pauseTimer()" [class.disabled]="!isRunning">
+                <h2>Pause Session</h2>
+              </div>
+          
+              <div class="button" (click)="endTimer()">
+                <h2>End Session</h2>
+              </div>
             </div>
-        </div>
+          </div>
     </body>
 </html>
