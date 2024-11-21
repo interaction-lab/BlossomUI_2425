@@ -5,7 +5,7 @@ git clone https://github.com/interaction-lab/BlossomUI_2425.git
 cd BlossomUI_2425/inlab_study
 
 # Setup backend
-cd backend
+cd middleware
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
@@ -17,11 +17,23 @@ sleep 3
 # Setup and start frontend
 cd ../frontend/blossom-ang-ts
 npm install
+npm audit fix #fix any vulnerabilites
+sudo npm install -g @angular/cli #ensure Angular CLI is installed
 export NODE_OPTIONS=--openssl-legacy-provider
+
+#IP address safely
+IP=$(ipconfig getifaddr en0 2>/dev/null || hostname -I | awk '{print $1}')
+
 ng serve --host 0.0.0.0 &
 
-echo "Blossom UI is starting up!"
-echo "Frontend: http://$(hostname -I | cut -d' ' -f1):4200"
-echo "Backend: http://$(hostname -I | cut -d' ' -f1):5000"
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    open "http://$IP:4200" &
+    open "http://$IP:5000" &
+else
+    xdg-open "http://$IP:4200" &
+    xdg-open "http://$IP:5000" &
+fi
 
-wait
+echo "Blossom UI has started up!"
+echo "Frontend: http://$IP:4200"
+echo "Backend: http://$IP:5000"
