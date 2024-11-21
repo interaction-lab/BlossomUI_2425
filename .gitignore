@@ -2,3 +2,7 @@
 .DYSM
 **/.DS_Store
 **/.DYSM
+venv/
+env/
+.env/
+.venv/
