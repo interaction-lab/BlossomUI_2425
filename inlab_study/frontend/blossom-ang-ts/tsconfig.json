@@ -28,7 +28,7 @@
       "ES2022",
       "dom"
     ],
-    "useDefineForClassFields": true,
+    "useDefineForClassFields": true
   },
 
 "angularCompilerOptions": {
