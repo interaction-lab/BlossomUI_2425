@@ -1,17 +1,26 @@
 #!/bin/bash
 
-#clone and navigate to project [before frontend and startup]
-git clone https://github.com/interaction-lab/BlossomUI_2425.git
-cd ./BlossomUI_2425/inlab_study
+# Make script executable
+chmod +x "$(readlink -f "$0")"
 
-#middleware
-cd middleware
+# Setup backend
+cd backend
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
+python3 app.py &
 
-#setup frontend
+# Wait for backend to start
+sleep 3
+
+# Setup and start frontend
 cd ../frontend/blossom-ang-ts
 npm install
-chmod +x ../start_blossom.sh
-../start_blossom.sh
+export NODE_OPTIONS=--openssl-legacy-provider
+ng serve --host 0.0.0.0 &
+
+echo "Blossom UI is starting up!"
+echo "Frontend: http://$(hostname -I | cut -d' ' -f1):4200"
+echo "Backend: http://$(hostname -I | cut -d' ' -f1):5000"
+
+wait
