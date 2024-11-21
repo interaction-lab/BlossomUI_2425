@@ -13,5 +13,5 @@ pip install -r requirements.txt
 #setup frontend
 cd ../frontend/blossom-ang-ts
 npm install
-chmod +x start_blossom.sh
-./start_blossom.sh
+chmod +x ../start_blossom.sh
+../start_blossom.sh
