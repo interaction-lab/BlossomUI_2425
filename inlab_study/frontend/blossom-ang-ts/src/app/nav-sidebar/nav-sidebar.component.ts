@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
   standalone: true,
   imports: [RouterModule, MatIconModule]
 })
-export class NavSidebarComponent {
+export class NavSidebarComponent 
+{
 
 }
