@@ -6,10 +6,11 @@ import { interval, Subscription } from 'rxjs';
   templateUrl: './study.component.html',
   styleUrls: ['./study.component.css']
 })
-export class StudyComponent implements OnInit {
-
-  time: number = 0;
-  display?: string = '00:00:00';
+export class StudyComponent implements OnInit 
+{
+  readonly INITIAL_TIME = 25 * 60;
+  timeRemain: number = this.INITIAL_TIME; //25 minutes left --> for inlab pilot
+  display?: string = '00:25:00';
   interval$!: Subscription;
   isRunning: boolean = false;
 
@@ -25,9 +26,18 @@ export class StudyComponent implements OnInit {
     if (!this.isRunning)
     {
       this.isRunning = true;
-      this.interval$ = interval(1000).subscribe(() => {
-        this.time++;
-        this.updateDisplay();
+      this.interval$ = interval(1000).subscribe(() => 
+      {
+        if (this.timeRemain > 0)
+        {
+          this.timeRemain--;
+          this.updateDisplay();
+        }
+
+        else
+        {
+          this.pauseTimer();
+        }
       });
     }
   }
@@ -41,14 +51,14 @@ export class StudyComponent implements OnInit {
   
   endTimer() {
     this.pauseTimer();
-    this.time = 0;
+    this.timeRemain = this.INITIAL_TIME; //start from the highest, end at lowest
     this.updateDisplay();
   }
 
   private updateDisplay() {
-    const hours = Math.floor(this.time / 3600);
-    const minutes = Math.floor((this.time % 3600) / 60);
-    const seconds = this.time % 60;
+    const hours = Math.floor(this.timeRemain / 3600);
+    const minutes = Math.floor(this.timeRemain / 60);
+    const seconds = this.timeRemain % 60;
 
     this.display = `${this.pad(hours)}:${this.pad(minutes)}:${this.pad(seconds)}`;
   }

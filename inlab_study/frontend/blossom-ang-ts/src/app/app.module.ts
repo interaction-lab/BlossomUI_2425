@@ -19,12 +19,13 @@ import { NavSidebarComponent } from './nav-sidebar/nav-sidebar.component';
     StudyComponent,
     TrainingComponent,
     ExtraComponent,
-    NavSidebarComponent
+    //NavSidebarComponent --> remove bc don't want to declare as standalone
   ],
   imports: [
     BrowserModule,
     AppRoutingModule, 
-    HttpClientModule
+    HttpClientModule,
+    NavSidebarComponent
   ],
   providers: [], //add services here
   bootstrap: [AppComponent]
