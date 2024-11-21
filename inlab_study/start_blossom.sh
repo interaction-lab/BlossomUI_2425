@@ -21,6 +21,15 @@ npm audit fix #fix any vulnerabilites
 sudo npm install -g @angular/cli #ensure Angular CLI is installed
 export NODE_OPTIONS=--openssl-legacy-provider
 
+#install requirements.txt based on platform
+if [[ $(uname) == "Darwin" ]]; then
+    pip install flask flask-cors
+else
+    pip install -r requirements.txt
+fi
+
+python3 app.py &
+
 #IP address safely
 IP=$(ipconfig getifaddr en0 2>/dev/null || hostname -I | awk '{print $1}')
 
