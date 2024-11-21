@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AppComponent } from './app.component';
 import { LandingComponent } from './landing/landing.component';
 import { StudyComponent } from './study/study.component';
 import { TrainingComponent } from './training/training.component';
 import { SettingsComponent } from './settings/settings.component';
 import { ExtraComponent } from './extra/extra.component';
+//navbar not added here bc not a route itself
 
 const routes: Routes = 
 [  {path: '', redirectTo: '/landing', pathMatch: 'full' }, //default route --> landing page
