@@ -1,7 +1,8 @@
 #!/bin/bash
 
-# Make script executable
-chmod +x "$(readlink -f "$0")"
+# Clone and navigate to project
+git clone https://github.com/interaction-lab/BlossomUI_2425.git
+cd BlossomUI_2425/inlab_study
 
 # Setup backend
 cd backend
