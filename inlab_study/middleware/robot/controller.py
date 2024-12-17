@@ -1,4 +1,8 @@
-import RPi.GPIO as GPIO
+try:
+    import RPi.GPIO as GPIO
+except ImportError:
+    print("Warning: RPi.GPIO module not found. Running in development mode.")
+    # You could create a mock GPIO class here for development
 
 class RobotController:
     def __init__(self):

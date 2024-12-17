@@ -1,48 +1,59 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# Clone and navigate to project
-git clone https://github.com/interaction-lab/BlossomUI_2425.git
-cd BlossomUI_2425/inlab_study
+# Store the script directory
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
-# Setup backend
-cd middleware
-python3 -m venv venv
+cd "$SCRIPT_DIR" #move to that directory
+
+# Function to check if a command exists
+command_exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+# Check for required commands
+if ! command_exists python3; then
+    echo "Python3 is required but not installed. Installing..."
+    sudo apt-get update && sudo apt-get install -y python3
+fi
+
+if ! command_exists pip3; then
+    echo "Pip3 is required but not installed. Installing..."
+    sudo apt-get install -y python3-pip
+fi
+
+# Create and activate virtual environment if it doesn't exist
+if [ ! -d "venv" ]; then
+    echo "Creating virtual environment..."
+    python3 -m venv venv
+fi
 source venv/bin/activate
-pip install -r requirements.txt
-python3 app.py &
 
-# Wait for backend to start
-sleep 3
-
-# Setup and start frontend
-cd ../frontend/blossom-ang-ts
-npm install
-npm audit fix #fix any vulnerabilites
-sudo npm install -g @angular/cli #ensure Angular CLI is installed
-export NODE_OPTIONS=--openssl-legacy-provider
-
-#install requirements.txt based on platform
-if [[ $(uname) == "Darwin" ]]; then
-    pip install flask flask-cors
-else
+# Install requirements if needed
+if [ -f "requirements.txt" ]; then
     pip install -r requirements.txt
 fi
 
-python3 app.py &
+# Start the Blossom UI setup
+echo "Starting Angular frontend (UI)..."
+cd frontend/blossom-ang-ts #navigate to Angular project directory
+ng serve & #run Angular in background
+cd "$SCRIPT_DIR" #go back to root
 
-#IP address safely
-IP=$(ipconfig getifaddr en0 2>/dev/null || hostname -I | awk '{print $1}')
+# Wait for Angular to start
+sleep 5
 
-ng serve --host 0.0.0.0 &
-
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    open "http://$IP:4200" &
-    open "http://$IP:5000" &
-else
-    xdg-open "http://$IP:4200" &
-    xdg-open "http://$IP:5000" &
+# Start the robot
+echo "Starting Blossom robot..."
+#start_robot.py is in the same directory as start_blossom.sh
+if [ -f "start_robot.py" ]; then
+    python3 start_robot.py
+else 
+    echo "Error: start_robot.py not found in $SCRIPT_DIR"
+    exit 1
 fi
 
-echo "Blossom UI has started up!"
-echo "Frontend: http://$IP:4200"
-echo "Backend: http://$IP:5000"
+# Trap SIGINT to handle Ctrl+C
+trap 'trap - SIGINT && kill -- -$$' SIGINT
+
+# Keep script running
+wait

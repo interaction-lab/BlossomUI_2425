@@ -5,9 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'app-nav-sidebar',
   templateUrl: './nav-sidebar.component.html',
-  styleUrl: './nav-sidebar.component.css',
-  standalone: true,
-  imports: [RouterModule, MatIconModule]
+  styleUrl: './nav-sidebar.component.css'
 })
 export class NavSidebarComponent 
 {

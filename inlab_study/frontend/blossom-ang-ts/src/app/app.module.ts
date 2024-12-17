@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
+import { RouterModule } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
 
 import { AppComponent } from './app.component';
 import { LandingComponent } from './landing/landing.component';
@@ -19,13 +21,14 @@ import { NavSidebarComponent } from './nav-sidebar/nav-sidebar.component';
     StudyComponent,
     TrainingComponent,
     ExtraComponent,
-    //NavSidebarComponent --> remove bc don't want to declare as standalone
+    NavSidebarComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule, 
+    RouterModule,
     HttpClientModule,
-    NavSidebarComponent
+    MatIconModule
   ],
   providers: [], //add services here
   bootstrap: [AppComponent]
