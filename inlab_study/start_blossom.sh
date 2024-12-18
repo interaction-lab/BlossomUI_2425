@@ -38,10 +38,13 @@ echo "Starting Angular frontend (UI)..."
 cd frontend/blossom-ang-ts #navigate to Angular project directory
 npm install
 echo "y" | ng serve &
-cd "$SCRIPT_DIR"
 
 # Wait for Angular to start
 sleep 5
+
+#launching chromium in fullscreen on raspberry pi!
+chromium-browser --kiosk --start-fullscreen --noerrdialogs --disable-infobars --no-first-run "http://localhost:4200" &
+cd "$SCRIPT_DIR" #cd after fullscreen functionality achieved
 
 # Start the robot
 echo "Starting Blossom robot..."
