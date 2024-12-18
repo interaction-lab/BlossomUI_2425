@@ -36,8 +36,9 @@ fi
 # Start the Blossom UI setup
 echo "Starting Angular frontend (UI)..."
 cd frontend/blossom-ang-ts #navigate to Angular project directory
-ng serve & #run Angular in background
-cd "$SCRIPT_DIR" #go back to root
+npm install
+echo "y" | ng serve &
+cd "$SCRIPT_DIR"
 
 # Wait for Angular to start
 sleep 5
