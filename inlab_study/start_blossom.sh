@@ -44,6 +44,7 @@ sleep 5
 
 #launching chromium in fullscreen on raspberry pi!
 DISPLAY=:0 chromium-browser --kiosk --start-fullscreen --noerrdialogs --disable-infobars --no-first-run "http://localhost:4200" &
+#opens in full-screen now, just saying localhost refused to connect... look at connectivity
 cd "$SCRIPT_DIR" #cd after fullscreen functionality achieved
 
 # Start the robot
