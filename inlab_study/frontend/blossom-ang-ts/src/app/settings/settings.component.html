@@ -1,59 +1,8 @@
-<!DOCTYPE html>
-<html lang = "en">
-<head>
-    <style>
-        body
-        {
-            font-family: Helvetica, sans-serif, light;
-            margin: 0; 
-            padding: 20px; 
-            background-color: #9b7d7ddc;
-
-            /*display: flex;*/
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        .color-slider
-        {
-            padding: 20px;
-            margin: 5px; 
-            text-align: center;
-            color:rgb(255, 255, 255);
-        }
-    </style>
-    <!--SETTINGS: navbar / side component to be accessed whenever-->
-</head>
-
-<body>
-    <!--insert slider for brightness-->
-    <!--<div class="color-slider">
-
-        <label for="Color Gradient">Color Slider</label>
-      
-        <input type="range" id="red" min="0" max="255" value="0">
-
-        <div id="color-display" style="background-color: rgb(0, 0, 0);"></div> 
-      
-    </div>-->
-
-    <div class="brightness-control">
-        <label for="brightness">Brightness</label>
-        <input type="range" 
-               id="brightness" 
-               class="brightness-slider" 
-               min="0" 
-               max="200" 
-               [value]="brightnessValue"
-               (input)="updateBrightness($event)">
-        <div>Brightness: {{brightnessValue}}%</div>
-        <div class="preview-box" [style.filter]="'brightness(' + brightnessValue + '%)'"></div>
-    </div>
-      
-
-    <!--insert slider for volume-->
-    <!--<p>settings works!</p>-->
-</body>
-
-</html>
+<div class="settings-container relative">
+    <!-- simulated brightness overlay -- FOR TESTING PURPOSES -->
+    <div class="brightness-overlay" [style.backgroundColor]="'rgba(0, 0, 0, ' + (1 - brightnessValue/100) + ')'"></div>
+    
+    <h2>Display Brightness</h2>
+    <input type="range" min="0" max="100" [value]="brightnessValue" (input)="updateBrightness($event)">
+    <p>Current brightness: {{brightnessValue}}%</p>
+</div>

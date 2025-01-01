@@ -1,0 +1,26 @@
+.settings-container 
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+  height: 100vh; /*100vh is full viewport height*/
+  text-align: center;
+}
+
+.brightness-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1000;
+  transition: background-color 0.2s ease;
+}
+
+h2, input, p {
+  position: relative;
+  z-index: 1001;
+}

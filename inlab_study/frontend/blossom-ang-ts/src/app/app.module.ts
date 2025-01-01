@@ -30,6 +30,9 @@ import { NavSidebarComponent } from './nav-sidebar/nav-sidebar.component';
     HttpClientModule,
     MatIconModule
   ],
+  exports: [
+    SettingsComponent
+  ],
   providers: [], //add services here
   bootstrap: [AppComponent]
 })
