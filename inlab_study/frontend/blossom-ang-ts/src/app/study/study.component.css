@@ -1,0 +1,62 @@
+body 
+{ 
+    font-family: Helvetica, sans-serif; 
+    margin: 0; 
+    padding: 20px; 
+    background-color: #b2daef;
+
+    /*to center the menu / boxes on the page*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+#studypage
+{
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto; 
+}
+
+#menu 
+{ 
+    display: flex;
+    flex-direction: mixed;
+    align-items: center;
+    padding: 10px;
+}
+
+.timer-display
+{
+  display: flex;
+  flex-direction: column;  /* Stack Study and Timer text vertically */
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.button
+{ 
+    background-color: #927B7B;
+    padding: 20px;
+    margin: 5px;
+    border-radius: 35px;
+    text-align: center;
+    width: 50%;
+    height: 50%;
+
+    /*adding the following properties for centering:*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*mix-blend-mode: multiply;*/ 
+   /* transition: all 0.3s ease;*/
+}
+
+.button h2
+{
+    margin: 0;
+    color: white;
+    font-size: 1.5em;
+    /*mix-blend-mode: difference;*/
+}
