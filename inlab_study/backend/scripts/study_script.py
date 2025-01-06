@@ -26,5 +26,6 @@ if __name__ == "__main__":
         elif button_type == "pause":
             pause_handler()
         elif button_type == "end":
-            end_handler()        elif button_type == "idle_behavior":
+            end_handler()
+        elif button_type == "idle_behavior":
             ib_handler()
