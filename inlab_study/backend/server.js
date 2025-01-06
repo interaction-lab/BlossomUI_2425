@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
   res.json({ 
       message: 'Button API Server Running',
       endpoints: {
-          buttons: '/buttons/press'
+          buttons: '/buttons/press',
           study_buttons: '/study_buttons/press'
       }
   });
