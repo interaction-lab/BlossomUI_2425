@@ -1,6 +1,6 @@
 // middleware/buttonMiddleware.js
 const validateButtonType = (req, res, next) => {
-    const validButtons = ['yes', 'no', 'maybe', 'sometimes'];
+    const validButtons = ['yes', 'no', 'maybe', 'sometimes', 'start', 'pause', 'end'];
     const buttonType = req.body.buttonType?.toLowerCase();
 
     if (!buttonType) {

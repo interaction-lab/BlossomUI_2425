@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
+import { StudyService } from './study.service'; // Import StudyService
 
 @Component({
   selector: 'app-study',
@@ -14,7 +15,7 @@ export class StudyComponent implements OnInit
   interval$!: Subscription;
   isRunning: boolean = false;
 
-  constructor() { }
+  constructor(private studyService: StudyService) {} // Inject StudyService
 
   ngOnInit(): void {
   }
@@ -26,16 +27,20 @@ export class StudyComponent implements OnInit
     if (!this.isRunning)
     {
       this.isRunning = true;
-      this.interval$ = interval(1000).subscribe(() => 
-      {
-        if (this.timeRemain > 0)
-        {
+      this.studyService.pressStudyButton('start').subscribe( // Call the service
+        response => {
+          console.log('Start button pressed:', response); // Log success
+        },
+        error => {
+          console.error('Error pressing Start button:', error); // Log error
+        }
+      );
+
+      this.interval$ = interval(1000).subscribe(() => {
+        if (this.timeRemain > 0) {
           this.timeRemain--;
           this.updateDisplay();
-        }
-
-        else
-        {
+        } else {
           this.pauseTimer();
         }
       });
@@ -46,6 +51,15 @@ export class StudyComponent implements OnInit
     if (this.isRunning) {
       this.interval$.unsubscribe();
       this.isRunning = false;
+
+      this.studyService.pressStudyButton('pause').subscribe( // Call the service
+        response => {
+          console.log('Pause button pressed:', response); // Log success
+        },
+        error => {
+          console.error('Error pressing Pause button:', error); // Log error
+        }
+      );
     }
   }
   
@@ -53,11 +67,20 @@ export class StudyComponent implements OnInit
     this.pauseTimer();
     this.timeRemain = this.INITIAL_TIME; //start from the highest, end at lowest
     this.updateDisplay();
+
+    this.studyService.pressStudyButton('end').subscribe( // Call the service
+      response => {
+        console.log('End button pressed:', response); // Log success
+      },
+      error => {
+        console.error('Error pressing End button:', error); // Log error
+      }
+    );
   }
 
   private updateDisplay() {
     const hours = Math.floor(this.timeRemain / 3600);
-    const minutes = Math.floor(this.timeRemain / 60);
+    const minutes = Math.floor((this.timeRemain % 3600) / 60);
     const seconds = this.timeRemain % 60;
 
     this.display = `${this.pad(hours)}:${this.pad(minutes)}:${this.pad(seconds)}`;

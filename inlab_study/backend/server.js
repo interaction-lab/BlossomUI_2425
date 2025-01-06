@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const brightnessRoutes = require('./routes/brightness');
 const buttonRoutes = require('./routes/buttons');
+const studyButtonRoutes = require('./routes/study_buttons');
 
 const app = express();
 const port = 3000;
@@ -17,12 +18,16 @@ app.get('/', (req, res) => {
       message: 'Button API Server Running',
       endpoints: {
           buttons: '/buttons/press'
+          study_buttons: '/study_buttons/press'
       }
   });
 });
 
 // Button routes
 app.use('/buttons', buttonRoutes);
+
+// Button routes
+app.use('/study_buttons', studyButtonRoutes);
 
 // Add more detailed logging
 app.listen(port, () => {
