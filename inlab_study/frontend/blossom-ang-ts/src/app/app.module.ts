@@ -8,8 +8,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { AppComponent } from './app.component';
 import { LandingComponent } from './landing/landing.component';
 import { SettingsComponent } from './settings/settings.component';
+import { ButtonComponent } from './button/button.component';
 import { StudyComponent } from './study/study.component';
-import { TrainingComponent } from './training/training.component';
 import { ExtraComponent } from './extra/extra.component';
 import { NavSidebarComponent } from './nav-sidebar/nav-sidebar.component';
 
@@ -18,8 +18,8 @@ import { NavSidebarComponent } from './nav-sidebar/nav-sidebar.component';
     AppComponent,
     LandingComponent,
     SettingsComponent,
+    ButtonComponent,
     StudyComponent,
-    TrainingComponent,
     ExtraComponent,
     NavSidebarComponent
   ],

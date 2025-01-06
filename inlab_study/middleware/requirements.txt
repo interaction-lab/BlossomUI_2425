@@ -1,3 +1,0 @@
-flask
-flask-cors
-RPi.GPIO; platform_system=="Linux" and platform_machine=="armv7l"
