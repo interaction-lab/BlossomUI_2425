@@ -24,6 +24,14 @@ pygame.mixer.music.load('/home/blossom/Downloads/S72_PURR_1.wav')
 # backend/python/button_handlers.py
 def start_handler():
     print("Start button pressed!")
+
+    sys.path.insert(1, '/home/blossom/blossom-public')
+    # Create I2C bus object
+    i2c = busio.I2C(board.SCL, board.SDA)
+    pygame.init()
+    pygame.mixer.init()
+    pygame.mixer.music.load('/home/blossom/Downloads/S72_PURR_1.wav')
+    
     return "Start button pressed!"
 
 def pause_handler():
