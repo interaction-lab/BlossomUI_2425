@@ -13,6 +13,10 @@ def end_handler():
     print("End button pressed!")
     return "End button pressed!"
 
+def ib_handler():
+    print("Performing idle behavior")
+    return "Performing idle behavior"
+
 if __name__ == "__main__":
     import sys
     if len(sys.argv) > 1:
@@ -22,4 +26,5 @@ if __name__ == "__main__":
         elif button_type == "pause":
             pause_handler()
         elif button_type == "end":
-            end_handler()
+            end_handler()        elif button_type == "idle_behavior":
+            ib_handler()
