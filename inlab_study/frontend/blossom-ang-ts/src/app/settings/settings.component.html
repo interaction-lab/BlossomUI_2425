@@ -2,7 +2,12 @@
     <!-- simulated brightness overlay -- FOR TESTING PURPOSES -->
     <div class="brightness-overlay" [style.backgroundColor]="'rgba(0, 0, 0, ' + (1 - brightnessValue/100) + ')'"></div>
     
-    <h2>Display Brightness</h2>
+    <h2>Display Brightness</h2> <!--brightness section-->
     <input type="range" min="0" max="100" [value]="brightnessValue" (input)="updateBrightness($event)">
     <p>Current brightness: {{brightnessValue}}%</p>
+    
+    <h2>Display Volume</h2> <!--volume section-->
+    <input type="range" min="0" max="100" [value]="volumeValue" (input)="updateVolume($event)">
+    <p>Current volume: {{volumeValue}}%</p>
+    
 </div>

@@ -10,7 +10,7 @@ import { LandingComponent } from './landing/landing.component';
 import { SettingsComponent } from './settings/settings.component';
 import { ButtonComponent } from './button/button.component';
 import { StudyComponent } from './study/study.component';
-import { ExtraComponent } from './extra/extra.component';
+import { TricksComponent } from './tricks/tricks.component';
 import { NavSidebarComponent } from './nav-sidebar/nav-sidebar.component';
 
 @NgModule({
@@ -20,7 +20,7 @@ import { NavSidebarComponent } from './nav-sidebar/nav-sidebar.component';
     SettingsComponent,
     ButtonComponent,
     StudyComponent,
-    ExtraComponent,
+    TricksComponent,
     NavSidebarComponent
   ],
   imports: [

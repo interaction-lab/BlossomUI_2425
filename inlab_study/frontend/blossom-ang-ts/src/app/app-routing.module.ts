@@ -4,7 +4,7 @@ import { LandingComponent } from './landing/landing.component';
 import { StudyComponent } from './study/study.component';
 import { ButtonComponent } from './button/button.component';
 import { SettingsComponent } from './settings/settings.component';
-import { ExtraComponent } from './extra/extra.component';
+import { TricksComponent } from './tricks/tricks.component';
 //navbar not added here bc not a route itself
 
 const routes: Routes = 
@@ -13,7 +13,7 @@ const routes: Routes =
    {path: 'study', component: StudyComponent },
    {path: 'training', component: ButtonComponent},
    {path: 'settings', component: SettingsComponent},
-   {path: 'extra', component: ExtraComponent},
+   {path: 'tricks', component: TricksComponent},
    {path :'**', redirectTo: '/landing'} //wildcard route for 404
 ];
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BrightnessService } from './brightness.service';
+import { VolumeService } from './volume.service';
 
 @Component({
   selector: 'app-settings',
@@ -9,8 +10,9 @@ import { BrightnessService } from './brightness.service';
 
 export class SettingsComponent implements OnInit {
   brightnessValue: number = 100;
+  volumeValue: number = 100;
 
-  constructor(private brightnessService: BrightnessService) { }
+  constructor(private brightnessService: BrightnessService, private volumeService: VolumeService) { }
 
   updateBrightness(event: any)
   {
@@ -32,6 +34,27 @@ export class SettingsComponent implements OnInit {
           error: error
         });
       } 
+    );
+  }
+
+  updateVolume(event: any)
+  {
+    this.volumeValue = event.target.value; 
+
+    this.volumeService.setVolume(this.volumeValue).subscribe(
+      response =>
+      {
+        console.log('success');
+      }, 
+
+      error =>
+      {
+        console.error('Full error:', {
+          status: error.status, 
+          message: error.message, 
+          error: error
+        });
+      }
     );
   }
 

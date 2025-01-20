@@ -27,4 +27,4 @@ exports.setBrightness = async (req, res) => {
     const value = Math.round((req.body.brightness / 100) * maxBrightness);
     await fs.writeFile('/sys/class/backlight/rpi_backlight/brightness', value.toString());
     res.json({ success: true });
-};*/
+};*/              
