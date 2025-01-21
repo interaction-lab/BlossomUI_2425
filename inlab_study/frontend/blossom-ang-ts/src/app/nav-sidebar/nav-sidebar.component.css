@@ -1,16 +1,16 @@
 .sidebar
 {
     position: fixed;
-    top: 25%;
+    top: 42%;
     right: 0;
-    height: 50%;
-    width: 20%;
+    height: relative;
+    width: relative;
     background-color: rgba(255, 255, 255, 0.3); /*translucent*/
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(8px);
     display: flex;
     flex-direction: column;
     z-index: 1000;
-    /*padding: 5%;*/
+    padding: 2%;
 }
 
 .nav-links

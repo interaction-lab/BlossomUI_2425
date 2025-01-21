@@ -13,5 +13,37 @@
     <!-- Save Changes Button -->
     <button class="save-button" (click)="onSaveChanges()">Save Changes</button>
     
+    <div class="audio-preferences"> <!--audio preferences checkboxes-->
+        <h3>Sound Types</h3>
+        <div class="checkbox-group">
+            <label class="checkbox-container">
+                <input type="checkbox" 
+                       [checked]="audioPreferences.animalSounds"
+                       (change)="updateAudioPreference('animalSounds')">
+                <span class="checkbox-label">Animal Sounds</span>
+            </label>
+
+            <label class="checkbox-container">
+                <input type="checkbox" 
+                       [checked]="audioPreferences.digitalSounds"
+                       (change)="updateAudioPreference('digitalSounds')">
+                <span class="checkbox-label">Digital Sounds</span>
+            </label>
+
+            <label class="checkbox-container">
+                <input type="checkbox" 
+                       [checked]="audioPreferences.hybridSounds"
+                       (change)="updateAudioPreference('hybridSounds')">
+                <span class="checkbox-label">Hybrid Sounds</span>
+            </label>
+
+            <label class="checkbox-container">
+                <input type="checkbox" 
+                       [checked]="audioPreferences.vocalizations"
+                       (change)="updateAudioPreference('vocalizations')">
+                <span class="checkbox-label">Vocalizations</span>
+            </label>
+        </div>
+    </div>
 </div>
 
