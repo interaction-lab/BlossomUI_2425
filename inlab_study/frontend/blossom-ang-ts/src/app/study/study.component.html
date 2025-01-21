@@ -1,31 +1,23 @@
-<!DOCTYPE html>
-<html lang = "en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Study | Blossom</title>
-    </head>
-
-    <body>
-        <div id="studypage">
-            <div id="menu">
-              <div class="timer-display">
-                <h2>Study Timer</h2>
-                <div class="time">{{display}}</div>
-              </div>
-          
-              <div class="button" (click)="startTimer()" [class.active]="isRunning">
-                <h2>Start Session</h2>
-              </div>
-          
-              <div class="button" (click)="pauseTimer()" [class.disabled]="!isRunning">
-                <h2>Pause Session</h2>
-              </div>
-          
-              <div class="button" (click)="endTimer()">
-                <h2>End Session</h2>
-              </div>
-            </div>
+<div id="studypage">
+      <div class="timer-display">
+        <h2>Study Timer</h2>
+        <div class="time">{{display}}</div>
+      </div>
+  
+      <div id="menu">
+          <div class="button" (click)="startTimer()" [class.active]="isRunning">
+            <h2>Start</h2>
           </div>
-    </body>
-</html>
+      
+          <div class="button" (click)="pauseTimer()" [class.disabled]="!isRunning">
+            <h2>Pause</h2>
+          </div>
+      
+          <div class="button" (click)="endTimer()">
+            <h2>Reset</h2>
+          </div>
+          <!--/01_21_25: CHANGE END BUTTON TO RESET BUTTON-->
+    </div>
+</div>
+
+

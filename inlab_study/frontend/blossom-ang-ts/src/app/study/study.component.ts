@@ -20,8 +20,7 @@ export class StudyComponent implements OnInit
   ngOnInit(): void {
   }
 
-  //functions for the timer here...
-
+  //functions for the timer:
   startTimer()
   {
     if (!this.isRunning)

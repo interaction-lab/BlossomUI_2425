@@ -12,6 +12,7 @@ import { ButtonComponent } from './button/button.component';
 import { StudyComponent } from './study/study.component';
 import { TricksComponent } from './tricks/tricks.component';
 import { NavSidebarComponent } from './nav-sidebar/nav-sidebar.component';
+import { LedService } from './settings/led.service';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { NavSidebarComponent } from './nav-sidebar/nav-sidebar.component';
     SettingsComponent
   ],
   providers: [
-    provideHttpClient()], //add services here
+    provideHttpClient(), LedService
+  ], //services only need to be declared here
   bootstrap: [AppComponent]
 })
 

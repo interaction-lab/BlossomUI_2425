@@ -11,6 +11,16 @@ interface AudioPreferences
   vocalizations: boolean;
 }
 
+interface ColorPreferences
+{
+  red: boolean;
+  orange: boolean;
+  yellow: boolean;
+  green: boolean;
+  blue: boolean;
+  purple: boolean;
+}
+
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
@@ -28,7 +38,23 @@ export class SettingsComponent implements OnInit {
     vocalizations: true
   }
 
+  colorPreferences: ColorPreferences = {
+    red: false,
+    orange: false,
+    yellow: false,
+    green: false,
+    blue: false,
+    purple: false
+  };
+
   constructor(private brightnessService: BrightnessService, private volumeService: VolumeService, private http: HttpClient) { }
+
+  updateColorPreference(color: keyof ColorPreferences) 
+  {
+    this.colorPreferences[color] = !this.colorPreferences[color];
+    // You can add logic here to update the robot's LEDs
+    console.log('Updated color preferences:', this.colorPreferences);
+  }
 
   updateBrightness(event: any)
   {
@@ -79,7 +105,9 @@ export class SettingsComponent implements OnInit {
     const settings = {
       userId: userId,
       brightness: this.brightnessValue,
-      volume: this.volumeValue
+      volume: this.volumeValue,
+      audioPreferences: this.audioPreferences,
+      colorPreferences: this.colorPreferences
     };
   
     this.http.post('http://localhost:3000/save-settings', settings).subscribe({
@@ -124,6 +152,8 @@ export class SettingsComponent implements OnInit {
       error => {
         console.error('Error getting audio preferences:', error);
       }
-    )
+    );
+
+   // this.loadColorPreferences();
   }
 }

@@ -1,38 +1,38 @@
-body 
-{ 
+#studypage
+{
+    width: 100%;
     font-family: Helvetica, sans-serif; 
     margin: 0; 
     padding: 20px; 
     background-color: #b2daef;
-
-    /*to center the menu / boxes on the page*/
     display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
 }
 
-#studypage
+/*.timer-display
 {
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+}*/
+
+.time 
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 #menu 
 { 
     display: flex;
-    flex-direction: mixed;
+    flex-direction: row;
     align-items: center;
     padding: 10px;
-}
-
-.timer-display
-{
-  display: flex;
-  flex-direction: column;  /* Stack Study and Timer text vertically */
-  align-items: center;
-  margin-bottom: 30px;
 }
 
 .button
