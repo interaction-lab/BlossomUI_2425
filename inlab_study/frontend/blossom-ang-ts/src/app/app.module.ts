@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient } from '@angular/common/http'; // Use this instead of HttpClientModule
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
@@ -27,13 +27,13 @@ import { NavSidebarComponent } from './nav-sidebar/nav-sidebar.component';
     BrowserModule,
     AppRoutingModule, 
     RouterModule,
-    HttpClientModule,
     MatIconModule
   ],
   exports: [
     SettingsComponent
   ],
-  providers: [], //add services here
+  providers: [
+    provideHttpClient()], //add services here
   bootstrap: [AppComponent]
 })
 

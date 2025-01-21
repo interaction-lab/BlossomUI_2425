@@ -24,3 +24,22 @@ h2, input, p {
   position: relative;
   z-index: 1001;
 }
+
+.save-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #4CAF50; /* Green color */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.save-button:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+
+.save-button:active {
+  background-color: #3e8e41; /* Even darker green when active */
+}

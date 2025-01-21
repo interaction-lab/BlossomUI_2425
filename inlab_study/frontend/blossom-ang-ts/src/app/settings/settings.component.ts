@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { BrightnessService } from './brightness.service';
 import { VolumeService } from './volume.service';
 
@@ -12,7 +13,11 @@ export class SettingsComponent implements OnInit {
   brightnessValue: number = 100;
   volumeValue: number = 100;
 
-  constructor(private brightnessService: BrightnessService, private volumeService: VolumeService) { }
+  constructor(
+    private brightnessService: BrightnessService, 
+    private volumeService: VolumeService,
+    private http: HttpClient
+  ) { }
 
   updateBrightness(event: any)
   {
@@ -56,6 +61,24 @@ export class SettingsComponent implements OnInit {
         });
       }
     );
+  }
+
+  onSaveChanges(): void {
+    const userId = 'user123'; // Replace with dynamic user ID when implemented
+    const settings = {
+      userId: userId,
+      brightness: this.brightnessValue,
+      volume: this.volumeValue
+    };
+  
+    this.http.post('http://localhost:3000/save-settings', settings).subscribe({
+      next: () => {
+        console.log('Settings saved successfully!');
+      },
+      error: (error: any) => {
+        console.error('Error saving settings:', error);
+      }
+    });
   }
 
   ngOnInit(): void {

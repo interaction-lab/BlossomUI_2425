@@ -9,5 +9,9 @@
     <h2>Display Volume</h2> <!--volume section-->
     <input type="range" min="0" max="100" [value]="volumeValue" (input)="updateVolume($event)">
     <p>Current volume: {{volumeValue}}%</p>
+
+    <!-- Save Changes Button -->
+    <button class="save-button" (click)="onSaveChanges()">Save Changes</button>
     
 </div>
+
