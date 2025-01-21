@@ -1,0 +1,48 @@
+:host {
+    display: block;
+    background-color: #d5cde9; /* Light purple */
+    min-height: 100vh; /* Full height */
+    width: 100%;
+}
+
+body {
+    font-family: Helvetica, sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+#trickspage {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#menu {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    padding: 10px;
+}
+
+.button {
+    background-color: #a195c0; /* Light purple background for buttons */
+    padding: 20px;
+    border-radius: 35px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.button:active {
+    transform: scale(0.97); /* Shrink the button slightly when clicked */
+}
+
+.button h2 {
+    margin: 0;
+    color: white;
+    font-size: 1.5em;
+}
