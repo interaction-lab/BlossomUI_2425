@@ -21,13 +21,6 @@ export class SettingsComponent implements OnInit {
   brightnessValue: number = 100;
   volumeValue: number = 100;
 
-<<<<<<< Updated upstream
-  constructor(
-    private brightnessService: BrightnessService, 
-    private volumeService: VolumeService,
-    private http: HttpClient
-  ) { }
-=======
   audioPreferences: AudioPreferences = {
     animalSounds: true,
     digitalSounds: true,
@@ -35,8 +28,7 @@ export class SettingsComponent implements OnInit {
     vocalizations: true
   }
 
-  constructor(private brightnessService: BrightnessService, private volumeService: VolumeService) { }
->>>>>>> Stashed changes
+  constructor(private brightnessService: BrightnessService, private volumeService: VolumeService, private http: HttpClient) { }
 
   updateBrightness(event: any)
   {
@@ -82,7 +74,6 @@ export class SettingsComponent implements OnInit {
     );
   }
 
-<<<<<<< Updated upstream
   onSaveChanges(): void {
     const userId = 'user123'; // Replace with dynamic user ID when implemented
     const settings = {
@@ -99,7 +90,8 @@ export class SettingsComponent implements OnInit {
         console.error('Error saving settings:', error);
       }
     });
-=======
+  }
+    
   updateAudioPreference(type: keyof AudioPreferences)
   {
     this.audioPreferences[type] = !this.audioPreferences[type];
@@ -113,10 +105,10 @@ export class SettingsComponent implements OnInit {
         console.error('Error updating audio preferences with error:', error);
       }
     );
->>>>>>> Stashed changes
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void 
+  {
     this.brightnessService.getBrightness().subscribe(
       brightness => {
         this.brightnessValue = brightness;
@@ -133,7 +125,6 @@ export class SettingsComponent implements OnInit {
       error => {
         console.error('Error getting audio preferences:', error);
       }
-    )
+    );
   }
-
 }
