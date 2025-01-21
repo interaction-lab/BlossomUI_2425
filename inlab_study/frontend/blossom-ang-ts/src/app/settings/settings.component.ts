@@ -3,6 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { BrightnessService } from './brightness.service';
 import { VolumeService } from './volume.service';
 
+interface AudioPreferences
+{
+  animalSounds: boolean;
+  digitalSounds: boolean;
+  hybridSounds: boolean;
+  vocalizations: boolean;
+}
+
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
@@ -13,11 +21,22 @@ export class SettingsComponent implements OnInit {
   brightnessValue: number = 100;
   volumeValue: number = 100;
 
+<<<<<<< Updated upstream
   constructor(
     private brightnessService: BrightnessService, 
     private volumeService: VolumeService,
     private http: HttpClient
   ) { }
+=======
+  audioPreferences: AudioPreferences = {
+    animalSounds: true,
+    digitalSounds: true,
+    hybridSounds: true, 
+    vocalizations: true
+  }
+
+  constructor(private brightnessService: BrightnessService, private volumeService: VolumeService) { }
+>>>>>>> Stashed changes
 
   updateBrightness(event: any)
   {
@@ -63,6 +82,7 @@ export class SettingsComponent implements OnInit {
     );
   }
 
+<<<<<<< Updated upstream
   onSaveChanges(): void {
     const userId = 'user123'; // Replace with dynamic user ID when implemented
     const settings = {
@@ -79,6 +99,21 @@ export class SettingsComponent implements OnInit {
         console.error('Error saving settings:', error);
       }
     });
+=======
+  updateAudioPreference(type: keyof AudioPreferences)
+  {
+    this.audioPreferences[type] = !this.audioPreferences[type];
+
+    this.volumeService.setAudioPreferences(this.audioPreferences).subscribe(
+      response => {
+        console.log('Audio preferences updated successfully!');
+      }, 
+
+      error => {
+        console.error('Error updating audio preferences with error:', error);
+      }
+    );
+>>>>>>> Stashed changes
   }
 
   ngOnInit(): void {
@@ -90,6 +125,15 @@ export class SettingsComponent implements OnInit {
         console.error('Error getting current brightness:', error);
       }
     );
+
+    this.volumeService.getAudioPreferences().subscribe(
+      audioPreferences => {
+        this.audioPreferences = audioPreferences;
+      },
+      error => {
+        console.error('Error getting audio preferences:', error);
+      }
+    )
   }
 
 }

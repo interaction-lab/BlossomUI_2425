@@ -2,6 +2,13 @@
 // controllers/volume.js
 let mockVolume = 100;  // Store volume in memory for development
 
+let mockPreferences = {
+    animalSounds: true,
+    digitalSounds: true, 
+    hybridSounds: true, 
+    vocalizations: true
+};
+
 // For development/testing
 exports.getVolume = async (req, res) => {
     res.json(mockVolume);
@@ -11,6 +18,18 @@ exports.setVolume = async (req, res) => {
     mockVolume = req.body.volume;
     console.log('mock volume set to:', mockVolume);
     res.json({ success: true });
+};
+
+exports.getAudioPreferences = async (req, res) =>
+{
+    res.json(mockPreferences);
+};
+
+exports.setAudioPreferences = async (req, res) =>
+{
+    mockPreferences = { ...mockPreferences, ...req.body };
+    console.log('Audio preferences update:', mockPreferences);
+    res.json({ success : true});
 };
 
 // For Raspberry Pi (uncomment when deploying)
