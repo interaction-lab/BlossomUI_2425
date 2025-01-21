@@ -107,8 +107,7 @@ export class SettingsComponent implements OnInit {
     );
   }
 
-  ngOnInit(): void 
-  {
+  ngOnInit(): void {
     this.brightnessService.getBrightness().subscribe(
       brightness => {
         this.brightnessValue = brightness;
@@ -125,6 +124,6 @@ export class SettingsComponent implements OnInit {
       error => {
         console.error('Error getting audio preferences:', error);
       }
-    );
+    )
   }
 }
