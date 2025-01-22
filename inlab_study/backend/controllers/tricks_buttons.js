@@ -4,7 +4,7 @@ const path = require('path');
 
 exports.handleButtonPress = async (req, res) => {
     const buttonType = req.body.buttonType; // 'trick_1', 'trick_2', etc...
-    const scriptPath = path.join(__dirname, '..', 'scripts', 'trick_script.py'); // Change this if you have a different script for tricks
+    const scriptPath = path.join(__dirname, '..', 'scripts', 'study_script.py'); // Change this if you have a different script for tricks
 
     // Execute the Python command for the button press
     exec(`python3 ${scriptPath} ${buttonType}`, (error, stdout, stderr) => {
