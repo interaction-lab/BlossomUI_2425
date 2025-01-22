@@ -47,20 +47,51 @@ const db = new sqlite3.Database('./settings.db', (err) => {
 
 // API Endpoints
 app.post('/save-settings', (req, res) => {
-  const { userId, brightness, volume } = req.body;
+  const { userId, brightness, volume, audioPreferences, colorPreferences } = req.body;
 
-  if (!userId || brightness === undefined || volume === undefined) {
+  if (!userId || brightness === undefined || volume === undefined || !audioPreferences || !colorPreferences) {
     return res.status(400).json({ error: 'Invalid request. Missing parameters.' });
   }
 
   const query = `
-    INSERT INTO settings (user_id, brightness, volume)
-    VALUES (?, ?, ?)
+    INSERT INTO settings (
+      user_id, brightness, volume, 
+      animal_sounds, digital_sounds, hybrid_sounds, vocalizations,
+      red, orange, yellow, green, blue, purple
+    ) 
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ON CONFLICT(user_id) DO UPDATE SET
       brightness = excluded.brightness,
-      volume = excluded.volume
+      volume = excluded.volume,
+      animal_sounds = excluded.animal_sounds,
+      digital_sounds = excluded.digital_sounds,
+      hybrid_sounds = excluded.hybrid_sounds,
+      vocalizations = excluded.vocalizations,
+      red = excluded.red,
+      orange = excluded.orange,
+      yellow = excluded.yellow,
+      green = excluded.green,
+      blue = excluded.blue,
+      purple = excluded.purple;
   `;
-  db.run(query, [userId, brightness, volume], function (err) {
+
+  const values = [
+    userId,
+    brightness,
+    volume,
+    audioPreferences.animalSounds,
+    audioPreferences.digitalSounds,
+    audioPreferences.hybridSounds,
+    audioPreferences.vocalizations,
+    colorPreferences.red,
+    colorPreferences.orange,
+    colorPreferences.yellow,
+    colorPreferences.green,
+    colorPreferences.blue,
+    colorPreferences.purple
+  ];
+
+  db.run(query, values, function (err) {
     if (err) {
       console.error('Error saving settings:', err.message);
       res.status(500).json({ error: 'Failed to save settings.' });
@@ -69,6 +100,8 @@ app.post('/save-settings', (req, res) => {
     }
   });
 });
+
+
 
 app.get('/get-settings/:userId', (req, res) => {
   const { userId } = req.params;

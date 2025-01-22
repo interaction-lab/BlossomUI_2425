@@ -5,9 +5,37 @@ import adafruit_mpr121
 import time
 import random
 import pygame
+import sqlite3
 
-sys.path.insert(1, '/home/blossom/blossom-public')
+# sys.path.insert(1, '/home/blossom/blossom-public')
 from blossom_multi_model_signals import perform_next_action_random
+from blossom_multi_model_signals import perform_random_action_constrained
+
+def get_settings():
+    # Connect to the database
+    conn = sqlite3.connect('../settings.db')
+
+    # Create a cursor object to interact with the database
+    cursor = conn.cursor()
+
+    # Define the user_id you're looking for
+    # TODO: get the current user's username
+    user_id = 'user123'  
+
+    # find settings for the specified user_id
+    cursor.execute("SELECT * FROM settings WHERE user_id = ?", (user_id,))
+
+    # return the first match
+    settings = cursor.fetchone()
+
+    # close the connection
+    conn.close()
+
+    return settings
+    # how to unpack tuple into individual variables
+    # user_id, brightness, volume, animal_sounds, digital_sounds, hybrid_sounds, vocalizations, \
+    # red, orange, yellow, green, blue, purple = settings
+    
 
 # backend/python/button_handlers.py
 def start_handler():
@@ -24,7 +52,9 @@ def end_handler():
 
 def ib_handler():
     print("Performing idle behavior")
-    perform_next_action_random()
+    settings = get_settings()
+    perform_random_action_constrained(settings)
+    # perform_next_action_random()
     return "Performing idle behavior"
 
 def perform_trick_1():
