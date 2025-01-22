@@ -1,4 +1,4 @@
-// backend/routes/buttons.js
+// backend/routes/study_buttons.js
 const express = require('express');
 const router = express.Router();
 const buttonController = require('../controllers/study_buttons');

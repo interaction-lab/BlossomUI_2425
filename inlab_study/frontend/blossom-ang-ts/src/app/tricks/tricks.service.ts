@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class TricksService {
-  private apiUrl = 'http://localhost:3000/tricks/press'; // Your backend URL
+  private apiUrl = 'http://localhost:3000/tricks_buttons/press'; // Update URL to the correct route
 
   constructor(private http: HttpClient) {}
 
@@ -14,3 +14,4 @@ export class TricksService {
     return this.http.post(this.apiUrl, { buttonType: trick });
   }
 }
+

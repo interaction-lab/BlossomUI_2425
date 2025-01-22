@@ -1,22 +1,28 @@
+/* Make sure the background color of the entire page is purple */
 :host {
     display: block;
-    background-color: #d5cde9; /* Light purple */
+    background-color: #d1c7e0; /* Darker purple */
     min-height: 100vh; /* Full height */
     width: 100%;
+    margin: 0;
+    padding: 0;
 }
 
+/* Ensure the body has no margin or padding */
 body {
     font-family: Helvetica, sans-serif;
     margin: 0;
-    padding: 20px;
+    padding: 0;
 }
 
+/* Styles for trickspage */
 #trickspage {
     width: 100%;
     max-width: 800px;
     margin: 0 auto;
 }
 
+/* Menu styles */
 #menu {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -24,8 +30,9 @@ body {
     padding: 10px;
 }
 
+/* Button styling */
 .button {
-    background-color: #a195c0; /* Light purple background for buttons */
+    background-color: #8d80af; /* Light purple background for buttons */
     padding: 20px;
     border-radius: 35px;
     text-align: center;
@@ -35,14 +42,17 @@ body {
     height: 150px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.1s ease;
+    border: none; /* Ensure no border appears around the button */
 }
 
+/* Button active state */
 .button:active {
     transform: scale(0.97); /* Shrink the button slightly when clicked */
 }
 
+/* Remove margin from h2 inside buttons */
 .button h2 {
-    margin: 0;
+    margin: 0; /* Ensure no margin around text */
     color: white;
     font-size: 1.5em;
 }

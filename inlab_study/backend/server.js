@@ -6,6 +6,7 @@ const sqlite3 = require('sqlite3').verbose();
 const brightnessRoutes = require('./routes/brightness');
 const buttonRoutes = require('./routes/buttons');
 const studyButtonRoutes = require('./routes/study_buttons');
+const tricksButtonRoutes = require('./routes/tricks_buttons');
 
 const app = express();
 const port = 3000;
@@ -29,8 +30,11 @@ app.get('/', (req, res) => {
 // Button routes
 app.use('/buttons', buttonRoutes);
 
-// Button routes
+// Study Button routes
 app.use('/study_buttons', studyButtonRoutes);
+
+// Trick Button routes
+app.use('/tricks_buttons', tricksButtonRoutes);
 
 // Database Setup
 const db = new sqlite3.Database('./settings.db', (err) => {

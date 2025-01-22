@@ -1,12 +1,13 @@
+// backend/controllers/tricks_buttons.js
 const { exec } = require('child_process');
 const path = require('path');
 
-const scriptPath = path.join(__dirname, '..', 'scripts', 'tricks_script.py');
+exports.handleButtonPress = async (req, res) => {
+    const buttonType = req.body.buttonType; // 'trick_1', 'trick_2', etc...
+    const scriptPath = path.join(__dirname, '..', 'scripts', 'trick_script.py'); // Change this if you have a different script for tricks
 
-exports.handleTrickButtonPress = (req, res) => {
-    const trickType = req.body.buttonType; // 'trick_1', 'trick_2', etc.
-
-    exec(`python3 ${scriptPath} ${trickType}`, (error, stdout, stderr) => {
+    // Execute the Python command for the button press
+    exec(`python3 ${scriptPath} ${buttonType}`, (error, stdout, stderr) => {
         if (error) {
             console.error(`Error: ${error}`);
             return res.status(500).json({ error: error.message });
@@ -14,7 +15,7 @@ exports.handleTrickButtonPress = (req, res) => {
         console.log(`Python output: ${stdout}`);
         res.json({
             success: true,
-            message: `${trickType.toUpperCase()} button pressed!`,
+            message: `${buttonType.toUpperCase()} button pressed!`,
             output: stdout
         });
     });
