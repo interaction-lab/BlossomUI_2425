@@ -38,17 +38,10 @@
 
 /* Style the Delete and Submit buttons */
 .numeric-keypad button:last-child {
-    background-color: #e57373;  /* Light red for Delete */
-}
-
-.numeric-keypad button:last-child:hover {
-    background-color: #f44336;  /* Darker red on hover for Delete */
+    background-color: #8d80af;  /* Light red for Delete */
 }
 
 .numeric-keypad button:nth-last-child(2) {
-    background-color: #81c784;  /* Light green for Submit */
+    background-color: #8d80af;  /* Light green for Submit */
 }
 
-.numeric-keypad button:nth-last-child(2):hover {
-    background-color: #66bb6a;  /* Darker green on hover for Submit */
-}

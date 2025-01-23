@@ -3,7 +3,7 @@ body
     font-family: Helvetica, sans-serif; 
     margin: 0; 
     padding: 20px; 
-    background-color: #edefcd;
+    background-color: #d1c7e0;
 
     /*to center the menu / boxes on the page*/
     display: flex;
@@ -27,7 +27,7 @@ body
 
 .button
 { 
-    background-color: #3b3434;
+    background-color: #8d80af;
     padding: 20px;
     margin: 5px;
     border-radius: 35px;
@@ -51,9 +51,4 @@ body
     margin: 0;
     color: white;
     font-size: 1.5em;
-}
-
-.button:hover 
-{
-    background-color: #745959;
 }
