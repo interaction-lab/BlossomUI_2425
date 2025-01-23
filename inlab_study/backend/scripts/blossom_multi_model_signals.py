@@ -78,32 +78,32 @@ motor_map = {
 
 motor_movements_list = [bc.sigh, bc.idle_gaze, bc.posture_sway]
 
-def perform_action(action):
-    light_index, color, sound_index, sound_category, movement = action
+# def perform_action(action):
+#     light_index, color, sound_index, sound_category, movement = action
     
-    if sound_index != -1:
-        print(f"Now playing sound {sound_index + 1} in category {sound_category + 1}")
-        pygame.mixer.music.load(sound_list[sound_index])  # Play the sound
-        pygame.mixer.music.play()
+#     if sound_index != -1:
+#         print(f"Now playing sound {sound_index + 1} in category {sound_category + 1}")
+#         pygame.mixer.music.load(sound_list[sound_index])  # Play the sound
+#         pygame.mixer.music.play()
         
-    if movement != -1:
-        print(f"Now performing motor movement {movement + 1}")
-        motor_movements_list[movement]()  # Perform the motor movement
+#     if movement != -1:
+#         print(f"Now performing motor movement {movement + 1}")
+#         motor_movements_list[movement]()  # Perform the motor movement
         
-    if light_index != -1:
-        #color_name = color_map[color]
-        print(f"Now playing light sequence {light_index + 1} with color {color}")
-        light_seq_list[light_index](color_list[color])  # Play the light sequence
+#     if light_index != -1:
+#         #color_name = color_map[color]
+#         print(f"Now playing light sequence {light_index + 1} with color {color}")
+#         light_seq_list[light_index](color_list[color])  # Play the light sequence
 
 
-def perform_next_action_random():
+# def perform_next_action_random():
     
-    # Pick the most uncertain behavior
-    action = random.choice(multi_feature_action_space)
-    print(f"Performing behavior: {action}")
+#     # Pick the most uncertain behavior
+#     action = random.choice(multi_feature_action_space)
+#     print(f"Performing behavior: {action}")
 
-    # Perform the action
-    perform_action(action)  # Ensure this function triggers the robot action
+#     # Perform the action
+#     perform_action(action)  # Ensure this function triggers the robot action
 
 def perform_random_action_constrained(settings):
     user_id, brightness, volume, animal_sounds, digital_sounds, hybrid_sounds, \
@@ -172,53 +172,53 @@ single_feature_action_space = []
         # single_feature_action_space.append((sequence_dict[sequence], i, -1, -1, -1))
         
 # Add lights - need to fix this
-start_index = 0
-color_index = 0
-for sequence in light_seq_list:
-	for i in range(3):
-		color_index = start_index + i
-		if color_index >= len(color_list):
-			color_index -= len(color_list) 
-		single_feature_action_space.append((sequence_dict[sequence], color_index, -1, -1, -1))
-		#action_space.append(("light", index, sequence_dict[sequence]))
-	start_index += 1
+# start_index = 0
+# color_index = 0
+# for sequence in light_seq_list:
+# 	for i in range(3):
+# 		color_index = start_index + i
+# 		if color_index >= len(color_list):
+# 			color_index -= len(color_list) 
+# 		single_feature_action_space.append((sequence_dict[sequence], color_index, -1, -1, -1))
+# 		#action_space.append(("light", index, sequence_dict[sequence]))
+# 	start_index += 1
 
-# Add sounds (unimodal)
-for sound_index in range(len(sound_list)):
-    single_feature_action_space.append((-1, -1, sound_index, sound_index // 4, -1))  # sound index // 4 represents sound category
+# # Add sounds (unimodal)
+# for sound_index in range(len(sound_list)):
+#     single_feature_action_space.append((-1, -1, sound_index, sound_index // 4, -1))  # sound index // 4 represents sound category
 
-# Add motor movements (unimodal)
-for motor_index in range(len(motor_map)):
-    single_feature_action_space.append((-1, -1, -1, -1, motor_index))
+# # Add motor movements (unimodal)
+# for motor_index in range(len(motor_map)):
+#     single_feature_action_space.append((-1, -1, -1, -1, motor_index))
 
-# Randomize order
-random.shuffle(single_feature_action_space)
+# # Randomize order
+# random.shuffle(single_feature_action_space)
 
-# Create the second action space (all combinations)
+# # Create the second action space (all combinations)
 multi_feature_action_space = []
-for sequence in light_seq_list:
-    for color in range(len(color_list)):
-        for sound_index in range(len(sound_list)):
-            for movement in range(len(motor_map)):
-                multi_feature_action_space.append((sequence_dict[sequence], color, sound_index, sound_index // 4, movement)) 
+# for sequence in light_seq_list:
+#     for color in range(len(color_list)):
+#         for sound_index in range(len(sound_list)):
+#             for movement in range(len(motor_map)):
+#                 multi_feature_action_space.append((sequence_dict[sequence], color, sound_index, sound_index // 4, movement)) 
                 
-for sound_index in range(len(sound_list)):
-    for movement in range(len(motor_map)):
-        multi_feature_action_space.append((-1, -1, sound_index, sound_index // 4, movement)) 
+# for sound_index in range(len(sound_list)):
+#     for movement in range(len(motor_map)):
+#         multi_feature_action_space.append((-1, -1, sound_index, sound_index // 4, movement)) 
         
-for sequence in light_seq_list:
-    for color in range(len(color_list)):
-        for movement in range(len(motor_map)):
-            multi_feature_action_space.append((sequence_dict[sequence], color, -1, -1, movement)) 
+# for sequence in light_seq_list:
+#     for color in range(len(color_list)):
+#         for movement in range(len(motor_map)):
+#             multi_feature_action_space.append((sequence_dict[sequence], color, -1, -1, movement)) 
             
-for sequence in light_seq_list:
-    for color in range(len(color_list)):
-        for sound_index in range(len(sound_list)):
-            multi_feature_action_space.append((sequence_dict[sequence], color, sound_index, sound_index // 4, -1)) 
+# for sequence in light_seq_list:
+#     for color in range(len(color_list)):
+#         for sound_index in range(len(sound_list)):
+#             multi_feature_action_space.append((sequence_dict[sequence], color, sound_index, sound_index // 4, -1)) 
 
-# # Step 2: Random sampling for 22 rounds
-# for i in range(22):
-#     # Random
-#     perform_next_action_random(multi_feature_action_space)
+# # # Step 2: Random sampling for 22 rounds
+# # for i in range(22):
+# #     # Random
+# #     perform_next_action_random(multi_feature_action_space)
 
 
