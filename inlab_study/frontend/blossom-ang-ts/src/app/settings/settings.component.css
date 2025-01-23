@@ -22,7 +22,7 @@
 
 .audio-preferences
 {
-  margin-top: 30px;
+  /* margin-top: 30px; */
  /* text-align: left;*/
 }
 
@@ -148,13 +148,13 @@ input, p, h2 {
 
 h2 {
   font-size: 1.2rem; 
-  margin-bottom: 10px; 
-  margin-top: 10px; 
+  margin-bottom: 5px; 
+  margin-top: 5px; 
 }
 
 p {
   font-size: 1.1rem;
-  margin: 10px;
+  margin: 5px;
 }
 
 .save-button {
