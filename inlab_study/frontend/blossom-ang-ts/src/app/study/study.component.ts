@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
-import { StudyService } from './study.service'; // Import StudyService
+import { StudyService } from './study.service'; // Import StudyServic
+import { SettingsService } from '../settings/settings.service';
 
 @Component({
   selector: 'app-study',
@@ -9,13 +10,17 @@ import { StudyService } from './study.service'; // Import StudyService
 })
 export class StudyComponent implements OnInit 
 {
+  showSettings = false;
   readonly INITIAL_TIME = 25 * 60;
   timeRemain: number = this.INITIAL_TIME; //25 minutes left --> for inlab pilot
   display?: string = '00:25:00';
   interval$!: Subscription;
   isRunning: boolean = false;
 
-  constructor(private studyService: StudyService) {} // Inject StudyService
+  constructor(private studyService: StudyService, private settingsService: SettingsService) 
+  {
+    this.settingsService.showSettings$.subscribe(show => this.showSettings=show);
+  } 
 
   ngOnInit(): void {
   }

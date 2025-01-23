@@ -1,4 +1,5 @@
-<div id="studypage">
+<div class = "studypage">
+  <div class = "main-content">
       <div class="timer-display">
         <h2>Study Timer</h2>
         <div class="time">{{display}}</div>
@@ -17,6 +18,11 @@
             <h2>Reset</h2>
           </div>
           <!--/01_21_25: CHANGE END BUTTON TO RESET BUTTON-->
+    </div>
+  </div>
+
+    <div class="settings-panel" *ngIf="showSettings">
+        <app-settings></app-settings>
     </div>
 </div>
 

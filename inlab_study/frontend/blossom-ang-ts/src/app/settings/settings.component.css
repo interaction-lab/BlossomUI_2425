@@ -1,15 +1,15 @@
 .settings-container 
 {
-  min-height: 100vh;
+  /*min-height: 100vh;
   box-sizing: border-box;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* align-items: center; */
   padding: 200px;
   height: 100vh; 
-  text-align: center;
+  text-align: center;*/
+  padding: 2vh 2vw;
 }
 
 .brightness-slider,
@@ -141,9 +141,7 @@ input, p, h2 {
 }
 
 h2 {
-  font-size: 1.2rem; 
-  margin-bottom: 5px; 
-  margin-top: 5px; 
+  font-size: clamp(18px, 2vw, 24px);
 }
 
 p {

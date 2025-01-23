@@ -1,39 +1,25 @@
-.sidebar
-{
+.navbar {
     position: fixed;
-    top: 42%;
-    right: 0;
-    height: relative;
-    width: relative;
-    background-color: rgba(255, 255, 255, 0.3); /*translucent*/
-    backdrop-filter: blur(8px);
+    top: 40px;
+    left: 50px;
     display: flex;
-    flex-direction: column;
+    gap: 15px;
     z-index: 1000;
-    padding: 2%;
 }
 
-.nav-links
-{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    height: 100%;
-}
-
-.button a {
+.nav-button {
+    background: rgba(130, 114, 114, 0.3);
+    backdrop-filter: blur(8px);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    padding: 10px;
-    text-decoration: none;
-    color: black;
- }
+    cursor: pointer;
+}
 
-mat-icon
-{
-    color: rgb(43, 22, 22);
-    margin-right: 10px;
+.nav-button:hover {
+    background: rgba(241, 236, 236, 0.5);
 }
