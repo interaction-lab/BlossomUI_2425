@@ -136,24 +136,39 @@ export class SettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.brightnessService.getBrightness().subscribe(
-      brightness => {
-        this.brightnessValue = brightness;
+    // Replace with the actual user ID when needed
+    const userId = 'user123'; // Hardcoded for now
+  
+    this.http.get<any>(`http://localhost:3000/get-settings/${userId}`).subscribe(
+      (settings) => {
+        // Map the response to component properties
+        this.brightnessValue = settings.brightness || 100;
+        this.volumeValue = settings.volume || 100;
+  
+        // Map audio preferences
+        this.audioPreferences = {
+          animalSounds: settings.audioPreferences?.animalSounds ?? true,
+          digitalSounds: settings.audioPreferences?.digitalSounds ?? true,
+          hybridSounds: settings.audioPreferences?.hybridSounds ?? true,
+          vocalizations: settings.audioPreferences?.vocalizations ?? true
+        };
+  
+        // Map color preferences
+        this.colorPreferences = {
+          red: settings.colorPreferences?.red ?? false,
+          orange: settings.colorPreferences?.orange ?? false,
+          yellow: settings.colorPreferences?.yellow ?? false,
+          green: settings.colorPreferences?.green ?? false,
+          blue: settings.colorPreferences?.blue ?? false,
+          purple: settings.colorPreferences?.purple ?? false
+        };
+  
+        console.log('Loaded settings:', settings);
       },
-      error => {
-        console.error('Error getting current brightness:', error);
+      (error) => {
+        console.error('Error loading settings:', error);
       }
     );
-
-    this.volumeService.getAudioPreferences().subscribe(
-      audioPreferences => {
-        this.audioPreferences = audioPreferences;
-      },
-      error => {
-        console.error('Error getting audio preferences:', error);
-      }
-    );
-
-   // this.loadColorPreferences();
   }
+  
 }

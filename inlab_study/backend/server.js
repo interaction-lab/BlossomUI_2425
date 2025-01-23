@@ -110,18 +110,49 @@ app.get('/get-settings/:userId', (req, res) => {
     return res.status(400).json({ error: 'Invalid request. Missing userId.' });
   }
 
-  const query = `SELECT brightness, volume FROM settings WHERE user_id = ?`;
+  const query = `
+    SELECT 
+      brightness, 
+      volume, 
+      animal_sounds, 
+      digital_sounds, 
+      hybrid_sounds, 
+      vocalizations, 
+      red, orange, yellow, green, blue, purple
+    FROM settings WHERE user_id = ?`;
+
   db.get(query, [userId], (err, row) => {
     if (err) {
       console.error('Error fetching settings:', err.message);
-      res.status(500).json({ error: 'Failed to fetch settings.' });
-    } else if (row) {
-      res.status(200).json(row);
+      return res.status(500).json({ error: 'Failed to fetch settings.' });
+    }
+
+    if (row) {
+      const settings = {
+        brightness: row.brightness,
+        volume: row.volume,
+        audioPreferences: {
+          animalSounds: row.animal_sounds,
+          digitalSounds: row.digital_sounds,
+          hybridSounds: row.hybrid_sounds,
+          vocalizations: row.vocalizations
+        },
+        colorPreferences: {
+          red: row.red,
+          orange: row.orange,
+          yellow: row.yellow,
+          green: row.green,
+          blue: row.blue,
+          purple: row.purple
+        }
+      };
+      return res.status(200).json(settings);
     } else {
-      res.status(404).json({ error: 'Settings not found for this user.' });
+      return res.status(404).json({ error: 'Settings not found for this user.' });
     }
   });
 });
+
 
 // Add more detailed logging
 app.listen(port, () => {
