@@ -6,25 +6,18 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  padding: 50px;
+  /* align-items: center; */
+  padding: 200px;
   height: 100vh; 
   text-align: center;
 }
 
-.brightness-slider
-{
-  width: 100%;
-  max-width: 400px;
+.brightness-slider,
+.volume-slider {
+  width: 40%;  /* Adjust the width to your preference, or use a fixed pixel value */
+  max-width: 60px; /* Increase the max-width for a wider slider */
   margin-top: 10px;
   margin-bottom: 10px;
-}
-
-.volume-slider
-{
-  width: 100%;
-  max-width: 400px;
-  margin-top: 10px;
 }
 
 .audio-preferences
@@ -173,6 +166,8 @@ p {
   border-radius: 5px;
   cursor: pointer;
   font-size: 0.8rem;
+  width: 50%;
+  align-self: center;
 }
 
 .save-button:hover {
