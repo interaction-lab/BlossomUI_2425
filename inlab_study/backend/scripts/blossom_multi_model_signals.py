@@ -41,27 +41,6 @@ sequence_dict = {
 	fade_in_out: 3,
 	fill: 4
 }
-sound_list = [
-"/home/blossom/blossom-public/personalization/final_sounds_new_categories/animal_recordings/cat_meow_16.wav",
-"/home/blossom/blossom-public/personalization/final_sounds_new_categories/animal_recordings/cat_purr_16.wav",
-"/home/blossom/blossom-public/personalization/final_sounds_new_categories/animal_recordings/dog_whimper.wav",
-"/home/blossom/blossom-public/personalization/final_sounds_new_categories/animal_recordings/guinea_pig.wav",
-
-"/home/blossom/blossom-public/personalization/final_sounds_new_categories/animal_vocables/S29_MEOW_1.wav",
-"/home/blossom/blossom-public/personalization/final_sounds_new_categories/animal_vocables/S44_SNEEZE_2.wav",
-"/home/blossom/blossom-public/personalization/final_sounds_new_categories/animal_vocables/S72_PURR_3.wav",
-"/home/blossom/blossom-public/personalization/final_sounds_new_categories/animal_vocables/S89_BARK_1.wav",
-
-"/home/blossom/blossom-public/personalization/final_sounds_new_categories/electronic_noises/Beep4.wav",
-"/home/blossom/blossom-public/personalization/final_sounds_new_categories/electronic_noises/LIKED_MOMENT_2.wav",
-"/home/blossom/blossom-public/personalization/final_sounds_new_categories/electronic_noises/S77_FUNCTIONAL_SUCCESS.wav",
-"/home/blossom/blossom-public/personalization/final_sounds_new_categories/electronic_noises/shutter_2.wav",
-
-"/home/blossom/blossom-public/personalization/final_sounds_new_categories/human_vocables/No.wav",
-"/home/blossom/blossom-public/personalization/final_sounds_new_categories/human_vocables/S19_WHAT_THE_HECK_2.wav",
-"/home/blossom/blossom-public/personalization/final_sounds_new_categories/human_vocables/Yes.wav",
-"/home/blossom/blossom-public/personalization/final_sounds_new_categories/human_vocables/YOURE_WELCOME.wav"
-]
 
 animal_sound_list = [
 "/home/blossom/blossom-public/personalization/final_sounds_new_categories/animal_recordings/cat_meow_16.wav",
@@ -152,22 +131,23 @@ def perform_random_action_constrained(settings):
     valid_colors = []
 
     if red:
-        valid_colors.append("R")
+        valid_colors.append(R)
     if orange:
-        valid_colors.append("O")
+        valid_colors.append(O)
     if yellow:
-        valid_colors.append("Y")
+        valid_colors.append(Y)
     if green:
-        valid_colors.append("G")
+        valid_colors.append(G)
     if blue:
-        valid_colors.append("B")
+        valid_colors.append(B)
     if purple:
-        valid_colors.append("P")
+        valid_colors.append(P)
 
     # Ensure there are valid colors to choose from
     if valid_colors:
         # Randomly select a color from the valid options
         random_color = random.choice(valid_colors)
+        random_color = tuple(int(c * brightness/100) for c in random_color)
         print(f"Randomly selected color: {random_color}")
     else:
         random_color = None   
@@ -177,8 +157,9 @@ def perform_random_action_constrained(settings):
         pygame.mixer.music.play()
         
     random.choice(motor_movements_list)()  # Perform the motor movement
-        
-    random.choice(light_seq_list)(random_color)
+
+    if random_color:
+        random.choice(light_seq_list)(random_color)
  
 
 # Step 1: Perform all single-feature actions
