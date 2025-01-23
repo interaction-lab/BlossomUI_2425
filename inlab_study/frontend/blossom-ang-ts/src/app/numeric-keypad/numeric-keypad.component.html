@@ -1,0 +1,14 @@
+<!-- numeric-keypad.component.html -->
+<div *ngIf="keypadVisible">
+    <div class="numeric-keypad">
+      <!-- Create numeric keypad buttons for 0-9 -->
+      <button *ngFor="let key of firstRow" (click)="onKeyPress(key)">{{ key }}</button>
+      <button *ngFor="let key of secondRow" (click)="onKeyPress(key)">{{ key }}</button>
+      <button *ngFor="let key of thirdRow" (click)="onKeyPress(key)">{{ key }}</button>
+      <button *ngFor="let key of fourthRow" (click)="onKeyPress(key)">{{ key }}</button>
+
+      <!-- Action buttons (Delete, Submit) added in the bottom row -->
+      <button (click)="onDelete()">Delete</button>
+      <button (click)="onSubmit()">Submit</button>
+    </div>
+</div>

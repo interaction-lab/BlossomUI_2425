@@ -1,32 +1,151 @@
 /* button.component.css */
-.button-container {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    align-items: center;
-    padding: 250px;
+
+/* Apply background color to match the page's purple theme */
+:host {
+    display: block;
+    background-color: #d1c7e0; /* Darker purple */
+    min-height: 100vh;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: Helvetica, sans-serif;
 }
 
+/* Ensure the container takes full height and centers content */
+.button-container {
+    display: flex;
+    flex-direction: row; /* Change from column to row to arrange buttons horizontally */
+    gap: 1rem;
+    justify-content: center; /* Center the buttons horizontally */
+    padding-top: 100px;
+    height: 100vh;
+}
+
+/* Style the original buttons to match the design of the tricks page */
 .response-button {
-    padding: 1rem 2rem;
-    font-size: 1.2rem;
-    min-width: 200px;
-    border-radius: 8px;
-    border: none;
+    background-color: #8d80af; /* Light purple */
+    padding: 20px;
+    border-radius: 35px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
     cursor: pointer;
-    transition: transform 0.1s;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    border: none;
+    font-size: 1.5em;
+    color: white;
+    min-width: 150px; /* Ensure buttons have a minimum width */
 }
 
 .response-button:hover {
-    transform: scale(1.05);
+    background-color: #a393c6; /* Slightly darker on hover */
 }
 
 .response-button:active {
-    transform: scale(0.95);
+    transform: scale(0.97); /* Shrink the button slightly when clicked */
 }
 
-/* Individual button colors */
-.response-button:nth-child(1) { background-color: #4CAF50; color: white; } /* Yes */
-.response-button:nth-child(2) { background-color: #f44336; color: white; } /* No */
-.response-button:nth-child(3) { background-color: #2196F3; color: white; } /* Maybe */
-.response-button:nth-child(4) { background-color: #FF9800; color: white; } /* Sometimes */
+.response-button h2 {
+    margin: 0;
+    color: white;
+    font-size: 1.5em;
+}
+
+/* Hide the response buttons when the participant ID is submitted */
+.submitted .response-button {
+    display: none;
+}
+
+/* Styling for the input container */
+.input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    margin: auto;
+    text-align: center;
+}
+
+.instruction {
+    font-size: 1.2em;
+    color: #5e4b76;
+}
+
+.participant-input {
+    padding: 12px;
+    font-size: 1.2em;
+    border-radius: 12px;
+    border: 2px solid #8d80af;
+    width: 100%;
+    max-width: 350px;
+    text-align: center;
+    outline: none;
+}
+
+.participant-input:focus {
+    border-color: #4e3b7c;
+}
+
+/* Styling for the submit button */
+.submit-button {
+    background-color: #8d80af;
+    padding: 15px 25px;
+    border-radius: 35px;
+    color: white;
+    font-size: 1.2em;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.submit-button:hover {
+    background-color: #a393c6;
+}
+
+.submit-button:active {
+    transform: scale(0.97);
+}
+
+/* Remove unnecessary margin or padding around the welcome message */
+.welcome-message {
+    font-size: 1.5em;
+    color: #4e3b7c;
+    text-align: center;
+    padding: 10px 20px; /* Adjust padding to be consistent */
+    border-radius: 12px;
+    background-color: transparent; /* Remove background */
+    box-shadow: none; /* Remove box shadow */
+    margin: 0; /* Remove margin to avoid spacing issues */
+}
+
+/* Adjust the input container to remove space after submit */
+.input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    margin: auto;
+    text-align: center;
+    margin-top: 0; /* Remove top margin */
+}
+
+/* Remove any extra margin for the button-container after submission */
+.button-container {
+    margin-top: 0; /* Ensure no extra margin is applied */
+}
+
+

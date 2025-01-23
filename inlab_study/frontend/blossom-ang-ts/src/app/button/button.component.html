@@ -1,5 +1,29 @@
 <!-- button.component.html -->
-<div class="button-container">
+<div class="input-container" *ngIf="!submitted">
+    <p class="instruction">Enter your participant ID to begin</p>
+    <input 
+      type="text" 
+      [(ngModel)]="participantId" 
+      placeholder="Participant ID" 
+      class="participant-input" 
+      (focus)="showKeypad()"/>
+</div>
+  
+<div class="welcome-message" *ngIf="submitted">
+    <p>Welcome participant {{ participantId }}!</p>
+</div>
+  
+<!-- Include the numeric keypad component, which already has the Submit button -->
+<app-numeric-keypad 
+  *ngIf="keypadVisible" 
+  [keypadVisible]="keypadVisible" 
+  (keyPress)="onKeyPress($event)" 
+  (delete)="onDelete()" 
+  (submit)="submit()">
+</app-numeric-keypad>
+  
+<!-- Add your other buttons (yes, no, etc.) here if needed -->
+<div class="button-container" *ngIf="submitted">
     <button (click)="onButtonClick('yes')" class="response-button">Yes</button>
     <button (click)="onButtonClick('no')" class="response-button">No</button>
     <button (click)="onButtonClick('maybe')" class="response-button">Maybe</button>

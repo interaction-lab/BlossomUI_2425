@@ -1,0 +1,54 @@
+/* numeric-keypad.component.css */
+/* Styling for the keypad container */
+.numeric-keypad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);  /* 3 columns for the numeric buttons */
+    gap: 10px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    margin: 20px auto;
+    grid-template-rows: repeat(4, 60px);  /* 4 rows for the buttons */
+}
+
+/* Keypad buttons (digits 0-9) */
+.numeric-keypad button {
+    display: flex;  /* Enable flexbox layout */
+    justify-content: center; /* Center text horizontally */
+    align-items: center; /* Center text vertically */
+    padding: 20px;
+    font-size: 1.5rem;
+    border-radius: 12px;
+    background-color: #8d80af;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.numeric-keypad button:hover {
+    background-color: #a393c6;
+}
+
+.numeric-keypad button:active {
+    transform: scale(0.97);
+}
+
+/* Style the Delete and Submit buttons */
+.numeric-keypad button:last-child {
+    background-color: #e57373;  /* Light red for Delete */
+}
+
+.numeric-keypad button:last-child:hover {
+    background-color: #f44336;  /* Darker red on hover for Delete */
+}
+
+.numeric-keypad button:nth-last-child(2) {
+    background-color: #81c784;  /* Light green for Submit */
+}
+
+.numeric-keypad button:nth-last-child(2):hover {
+    background-color: #66bb6a;  /* Darker green on hover for Submit */
+}
