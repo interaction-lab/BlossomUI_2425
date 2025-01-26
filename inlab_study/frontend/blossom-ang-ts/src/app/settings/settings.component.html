@@ -7,13 +7,17 @@
             <p>Current brightness: {{brightnessValue}}%</p>
     </div> -->
 
-    <h2>LED Brightness</h2> <!--brightness section-->
-    <input type="range" min="0" max="100" [value]="brightnessValue" (input)="updateBrightness($event)">
-    <p>Current brightness: {{brightnessValue}}%</p>
-    
-    <h2>Behavior Frequency</h2> <!--volume section-->
-    <input type="range" min="10" max="60" [value]="volumeValue" (input)="updateVolume($event)">
-    <p>Blossom will move every {{volumeValue}} seconds</p>
+    <div class = "led-slider">
+        <h2>LED Brightness</h2> <!--brightness section-->
+        <input type="range" min="0" max="100" [value]="brightnessValue" (input)="updateBrightness($event)">
+        <p>Current brightness: {{brightnessValue}}%</p>
+    </div>
+
+    <div class = "behavior-slider">
+        <h2>Behavior Frequency</h2> <!--volume section-->
+        <input type="range" min="10" max="60" [value]="volumeValue" (input)="updateVolume($event)">
+        <p>Blossom will move every {{volumeValue}} seconds</p>
+    </div>
     
     <div class="audio-preferences"> <!--audio preferences checkboxes-->
         <h2>Robot Sound Types</h2>

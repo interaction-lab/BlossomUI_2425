@@ -12,17 +12,56 @@
   padding: 2vh 2vw;
 }
 
-.brightness-slider, .volume-slider {
-  width: 80%;
-  /*max-width: 60px;*/ /*increase the max-width for a wider slider*/
-  margin-top: 10px;
+/*.brightness-slider, .volume-slider {
+  width: 50%;
+  max-width: 80px; /*increase the max-width for a wider slider*/
+  /*margin-top: 10px;
   margin-bottom: 10px;
-  height: 20px;
+  height: 40px;
+}*/
+
+.led-slider, .behavior-slider
+{
+  width: 100%;
+  padding: 15px;
 }
 
 .audio-preferences
 {
   margin: 5px;
+}
+
+
+input {
+  position: center;
+  z-index: 1001;
+  width: 77%;
+}
+
+input[type="range"] 
+{
+  -webkit-appearance: none;
+  width: 80%;
+  height: 23px;
+}
+
+input[type="range"]::-webkit-slider-runnable-track
+{
+  height: 23px;
+  cursor: pointer;
+  background: #939393;
+  border-radius: 10px;
+}
+
+input[type="range"]::-webkit-slider-thumb
+{ 
+  -webkit-appearance: none;
+  height: 30px;
+  width: 30px;
+  background: #00b3ef;
+  border-radius: 50%;
+  margin-top: -4.5px;
+  cursor: pointer;
 }
 
 .checkbox-group
@@ -134,11 +173,6 @@
   font-size: 14px;
   color: #666;
   margin-top: 0px;
-}
-
-input {
-  position: relative;
-  z-index: 1001;
 }
 
 h2 {
