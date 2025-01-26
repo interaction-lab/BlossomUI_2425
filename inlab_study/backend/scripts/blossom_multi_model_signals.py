@@ -5,7 +5,7 @@ sys.path.insert(1, '/home/blossom/blossom-public')
 
 
 # Import light sequences
-from LED.rpi_led_sequence import row_traverse, twinkle_effect, color_chase, fade_in_out, fill
+from LED.rpi_led_sequence import row_traverse, twinkle_effect, color_chase, fade_in_out, fill, rainbow_wave
 from LED.motor_movements import BlossomController
 
 bc = BlossomController()
@@ -14,13 +14,15 @@ pygame.mixer.init()
 
 # Light definitions
 R = (255, 0, 0)
-G = (0, 255, 0)
+S = (255, 0, 128)
+M = (255, 0, 255)
+P = (128, 0, 128)
 B = (0, 0, 255)
 C = (0, 255, 255)
-M = (255, 0, 255)
+G = (0, 255, 0)
+L = (128, 255, 0)
 Y = (255, 255, 0)
 O = (255, 165, 0)
-P = (128, 0, 128)
 
 color_list = [R, G, B, C, M, Y]
 
@@ -45,7 +47,6 @@ sequence_dict = {
 animal_sound_list = [
 "/home/blossom/blossom-public/personalization/final_sounds_new_categories/animal_recordings/cat_meow_16.wav",
 "/home/blossom/blossom-public/personalization/final_sounds_new_categories/animal_recordings/cat_purr_16.wav",
-"/home/blossom/blossom-public/personalization/final_sounds_new_categories/animal_recordings/dog_whimper.wav",
 "/home/blossom/blossom-public/personalization/final_sounds_new_categories/animal_recordings/guinea_pig.wav"
 ]
 
@@ -107,7 +108,7 @@ motor_movements_list = [bc.sigh, bc.idle_gaze, bc.posture_sway]
 
 def perform_random_action_constrained(settings):
     user_id, brightness, volume, animal_sounds, digital_sounds, hybrid_sounds, \
-    vocalizations, red, orange, yellow, green, blue, purple = settings
+    vocalizations, red, rose, magenta, purple, blue, cyan, green, lime, yellow, orange, sessions_completed = settings
 
     valid_sounds = []
 
@@ -132,16 +133,24 @@ def perform_random_action_constrained(settings):
 
     if red:
         valid_colors.append(R)
-    if orange:
-        valid_colors.append(O)
-    if yellow:
-        valid_colors.append(Y)
-    if green:
-        valid_colors.append(G)
-    if blue:
-        valid_colors.append(B)
+    if rose:
+        valid_colors.append(S)
+    if magenta:
+        valid_colors.append(M)
     if purple:
         valid_colors.append(P)
+    if blue:
+        valid_colors.append(B)
+    if cyan:
+        valid_colors.append(C)
+    if green:
+        valid_colors.append(G)
+    if lime:
+        valid_colors.append(L)
+    if yellow:
+        valid_colors.append(Y)
+    if orange:
+        valid_colors.append(O)
 
     # Ensure there are valid colors to choose from
     if valid_colors:
@@ -160,6 +169,16 @@ def perform_random_action_constrained(settings):
 
     if random_color:
         random.choice(light_seq_list)(random_color)
+
+def end_of_session():
+    rainbow_wave()
+    success_sound = "/home/blossom/blossom-public/personalization/final_sounds_new_categories/misc/success-fanfare-trumpets.mp3"
+    pygame.mixer.music.load(success_sound) 
+    pygame.mixer.music.play()
+
+def perform_trick_1():
+    rainbow_wave()
+
  
 
 # Step 1: Perform all single-feature actions
