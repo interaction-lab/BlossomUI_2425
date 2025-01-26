@@ -10,6 +10,7 @@ import sqlite3
 # sys.path.insert(1, '/home/blossom/blossom-public')
 from blossom_multi_model_signals import perform_next_action_random
 from blossom_multi_model_signals import perform_random_action_constrained
+from blossom_multi_model_signals import end_of_session
 
 def get_settings(user_id):
     # Connect to the database
@@ -57,6 +58,12 @@ def ib_handler(participant_id):
     # perform_next_action_random()
     return "Performing idle behavior"
 
+def session_complete_handler():
+    print("Performing end of session celebration")
+    settings = get_settings(participant_id)
+    end_of_session()
+    return "Performing end of session celebration"
+
 def perform_trick_1():
     print("Performing Trick 1")
     perform_next_action_random()
@@ -100,6 +107,8 @@ if __name__ == "__main__":
             pause_handler()
         elif button_type == "end":
             end_handler()
+        elif button_type == "session_complete":
+            session_complete_handler()
     if len(sys.argv) > 1:
         button_type = sys.argv[1].lower()
         if button_type == "start":

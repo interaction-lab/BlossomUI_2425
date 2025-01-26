@@ -16,6 +16,7 @@ export class StudyComponent implements OnInit
   display?: string = '00:25:00';
   interval$!: Subscription;
   isRunning: boolean = false;
+  completed_session: boolean = false;
 
   constructor(private studyService: StudyService, private settingsService: SettingsService) 
   {
@@ -45,7 +46,8 @@ export class StudyComponent implements OnInit
           this.timeRemain--;
           this.updateDisplay();
         } else {
-          this.pauseTimer();
+          this.completed_session = true;
+          this.endTimer();
         }
       });
     }
@@ -71,6 +73,18 @@ export class StudyComponent implements OnInit
     this.pauseTimer();
     this.timeRemain = this.INITIAL_TIME; //start from the highest, end at lowest
     this.updateDisplay();
+
+    if(this.completed_session){
+      this.studyService.pressStudyButton('session_complete').subscribe( // Call the service
+        response => {
+          console.log('Session completed:', response); // Log success
+          this.completed_session = false;
+        },
+        error => {
+          console.error('Error pressing Session Completed:', error); // Log error
+        }
+      );
+    }
 
     this.studyService.pressStudyButton('end').subscribe( // Call the service
       response => {

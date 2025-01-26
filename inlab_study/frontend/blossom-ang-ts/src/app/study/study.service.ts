@@ -15,7 +15,7 @@ export class StudyService {
     private participantIdService: ParticipantIdService
   ) {}
 
-  pressStudyButton(buttonType: 'start' | 'pause' | 'end'): Observable<any> {
+  pressStudyButton(buttonType: 'start' | 'pause' | 'end' | 'session_complete'): Observable<any> {
     const participantId = this.participantIdService.getParticipantId();
     if (!participantId) {
       console.error('No participant ID set');
