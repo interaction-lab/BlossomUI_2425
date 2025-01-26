@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BrightnessService } from './brightness.service';
 import { VolumeService } from './volume.service';
 import { ParticipantIdService } from '../button/participant-id.service';
+import { SettingsService } from '../settings/settings.service';
 
 interface AudioPreferences
 {
@@ -29,6 +30,7 @@ interface ColorPreferences
 })
 
 export class SettingsComponent implements OnInit {
+
   brightnessValue: number = 100;
   volumeValue: number = 100;
 
@@ -54,7 +56,8 @@ export class SettingsComponent implements OnInit {
     private brightnessService: BrightnessService, 
     private volumeService: VolumeService, 
     private http: HttpClient,
-    private participantIdService: ParticipantIdService // Inject the ParticipantIdService
+    private participantIdService: ParticipantIdService,
+    private settingsService: SettingsService
   ) { }
 
   updateColorPreference(color: keyof ColorPreferences) 
@@ -125,11 +128,13 @@ export class SettingsComponent implements OnInit {
     this.http.post('http://localhost:3000/save-settings', settings).subscribe({
       next: () => {
         console.log('Settings saved successfully!');
+        this.settingsService.toggleSettings();
       },
       error: (error: any) => {
         console.error('Error saving settings:', error);
       }
     });
+    
   }
     
   updateAudioPreference(type: keyof AudioPreferences)
