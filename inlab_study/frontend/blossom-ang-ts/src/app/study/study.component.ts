@@ -11,7 +11,7 @@ import { SettingsService } from '../settings/settings.service';
 export class StudyComponent implements OnInit 
 {
   showSettings = false;
-  readonly INITIAL_TIME = 25 * 60;
+  readonly INITIAL_TIME = 2 * 60;
   timeRemain: number = this.INITIAL_TIME; //25 minutes left --> for inlab pilot
   display?: string = '00:25:00';
   interval$!: Subscription;
