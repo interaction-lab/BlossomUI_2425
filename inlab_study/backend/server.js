@@ -57,9 +57,9 @@ app.post('/save-settings', (req, res) => {
     INSERT INTO settings (
       user_id, brightness, volume, 
       animal_sounds, digital_sounds, hybrid_sounds, vocalizations,
-      red, orange, yellow, green, blue, purple
+      red, rose, magenta, purple, blue, cyan, green, lime, yellow, orange
     ) 
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ON CONFLICT(user_id) DO UPDATE SET
       brightness = excluded.brightness,
       volume = excluded.volume,
@@ -68,11 +68,15 @@ app.post('/save-settings', (req, res) => {
       hybrid_sounds = excluded.hybrid_sounds,
       vocalizations = excluded.vocalizations,
       red = excluded.red,
-      orange = excluded.orange,
-      yellow = excluded.yellow,
-      green = excluded.green,
+      rose = excluded.rose,
+      magenta = excluded.magenta,
+      purple = excluded.purple,
       blue = excluded.blue,
-      purple = excluded.purple;
+      blue = excluded.cyan,
+      green = excluded.green,
+      blue = excluded.lime,
+      yellow = excluded.yellow,
+      orange = excluded.orange;
   `;
 
   const values = [
@@ -84,11 +88,15 @@ app.post('/save-settings', (req, res) => {
     audioPreferences.hybridSounds,
     audioPreferences.vocalizations,
     colorPreferences.red,
-    colorPreferences.orange,
-    colorPreferences.yellow,
-    colorPreferences.green,
+    colorPreferences.rose,
+    colorPreferences.magenta,
+    colorPreferences.purple,
     colorPreferences.blue,
-    colorPreferences.purple
+    colorPreferences.cyan,
+    colorPreferences.green,
+    colorPreferences.lime,
+    colorPreferences.yellow,
+    colorPreferences.orange
   ];
 
   db.run(query, values, function (err) {
@@ -118,7 +126,7 @@ app.get('/get-settings/:userId', (req, res) => {
       digital_sounds, 
       hybrid_sounds, 
       vocalizations, 
-      red, orange, yellow, green, blue, purple
+      red, rose, magenta, purple, blue, cyan, green, lime, yellow, orange
     FROM settings WHERE user_id = ?`;
 
   db.get(query, [userId], (err, row) => {
@@ -139,11 +147,15 @@ app.get('/get-settings/:userId', (req, res) => {
         },
         colorPreferences: {
           red: row.red,
-          orange: row.orange,
-          yellow: row.yellow,
-          green: row.green,
+          rose: row.rose,
+          magenta: row.magenta,
+          purple: row.purple,
           blue: row.blue,
-          purple: row.purple
+          cyan: row.cyan,
+          green: row.green,
+          lime: row.lime,
+          yellow: row.yellow,
+          orange: row.orange
         }
       };
       return res.status(200).json(settings);

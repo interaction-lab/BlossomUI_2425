@@ -145,13 +145,14 @@ input[type="range"]::-webkit-slider-thumb
 .color-checkbox.red { background-color: #ad0808; }
 .color-checkbox.rose{ background-color: #ea1660}
 .color-checkbox.magenta { background-color: #d01fd0; }
-.color-checkbox.orange { background-color: #ff9800; }
-.color-checkbox.yellow { background-color: #ffeb3b; }
-.color-checkbox.green { background-color: #4caf50; }
-.color-checkbox.blue { background-color: #2196f3; }
 .color-checkbox.purple { background-color: #9c27b0; }
-.color-checkbox.chartreuse {background-color: #a3ff47;}
+.color-checkbox.blue { background-color: #2196f3; }
 .color-checkbox.cyan {background-color: #00ffff;}
+.color-checkbox.green { background-color: #4caf50; }
+.color-checkbox.lime {background-color: #a3ff47;}
+.color-checkbox.yellow { background-color: #ffeb3b; }
+.color-checkbox.orange { background-color: #ff9800; }
+
 /* Checked state */
 .color-checkbox-container input[type="checkbox"]:checked + .color-checkbox {
   transform: scale(1.1);

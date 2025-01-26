@@ -22,7 +22,7 @@ interface ColorPreferences
   orange: boolean;
   yellow: boolean;
   green: boolean;
-  chartreuse: boolean;
+  lime: boolean;
   blue: boolean;
   cyan: boolean;
 }
@@ -49,13 +49,13 @@ export class SettingsComponent implements OnInit {
     red: false,
     rose: false,
     magenta: false,
-    chartreuse: false,
-    cyan: false,
-    orange: false,
-    yellow: false,
-    green: false,
+    purple: false,
     blue: false,
-    purple: false
+    cyan: false,
+    green: false,
+    lime: false,
+    yellow: false,
+    orange: false
   };
 
   participantId: string = ''; // Store the participant ID
@@ -186,7 +186,7 @@ export class SettingsComponent implements OnInit {
             red: settings.colorPreferences?.red ?? false,
             rose: settings.colorPreferencse?.rose ?? false,
             magenta: settings.colorPreferences?.magenta ?? false,
-            chartreuse: settings.colorPreferences?.chartreuse ?? false,
+            lime: settings.colorPreferences?.lime ?? false,
             cyan: settings.colorPreferences?.cyan ?? false,
             orange: settings.colorPreferences?.orange ?? false,
             yellow: settings.colorPreferences?.yellow ?? false,
