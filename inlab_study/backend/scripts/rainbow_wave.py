@@ -23,24 +23,37 @@ def wheel(pos):
         pos -= 170
         return (0, pos * 3, 255 - pos * 3)
 
-# Function to display a rainbow in the middle 20 pixels
-def show_rainbow_middle():
-    # Set all pixels to off first
-    pixels.fill((0, 0, 0))
+# Function to show the rainbow moving across the strip
+def move_rainbow():
+    # Total number of steps for the rainbow to move across (from start to end)
+    num_steps = num_pixels - 20
+    delay_per_step = 2.0 / num_steps  # Total time to move divided by number of steps
     
-    # Determine the start and end positions of the middle 20 pixels
-    start_pixel = (num_pixels - 20) // 2
-    end_pixel = start_pixel + 20
-    
-    # Apply rainbow effect to the middle 20 pixels
-    for i in range(start_pixel, end_pixel):
-        color = wheel(int((i - start_pixel) * 255 / 19))  # Map index to color
-        pixels[i] = color
-    
-    # Update the strip to show the colors
-    pixels.show()
+    for _ in range(5):  # Repeat the animation 5 times
+        # Move the rainbow across the strip
+        for step in range(num_steps):
+            # Clear the strip
+            pixels.fill((0, 0, 0))
+            
+            # Determine the start and end position for the current rainbow segment
+            start_pixel = step
+            end_pixel = start_pixel + 20
+            
+            # Apply rainbow effect to the current 20 pixels
+            for i in range(start_pixel, end_pixel):
+                color = wheel(int((i - start_pixel) * 255 / 19))  # Map index to color
+                pixels[i] = color
+            
+            # Update the strip to show the colors
+            pixels.show()
+            
+            # Wait before moving to the next step
+            time.sleep(delay_per_step)
+        
+        # After one full pass, clear the strip before starting again
+        pixels.fill((0, 0, 0))
+        pixels.show()
+        time.sleep(0.5)  # Pause for a short time before restarting the animation
 
 # Example usage
-while True:
-    show_rainbow_middle()
-    time.sleep(0.1)
+move_rainbow()
