@@ -70,13 +70,15 @@
 .settings-panel {
     background: rgba(255, 255, 255, 0.95);
     border-radius: 10px;
-    padding: 2vh 2vw;
-    height: 90vh;
-    width: 70vw;
+    padding: 20px;
+    height: fit-content;
+    max-height: 80vh;
+    width: 90vw;
     overflow-y: auto;
     position: fixed; /*fixed the position relative to the viewport*/
-    top: 5%; /*position from top*/
-    left: 20%; /*position from left*/
+    top: 50%; /*position from top*/
+    left: 50%; /*position from left*/
+    transform: translate(-50%, -50%);
 }
 
 /* Make scrollbar more visible */

@@ -1,9 +1,11 @@
 .navbar 
 {
     position: fixed;
-    top: 40px;
-    left: 50px;
+    /*top: 40px;
+    left: 50px;*/
+    padding: 30px;
     display: flex;
+    flex-direction: column;
     gap: 15px;
     z-index: 1000;
 }
