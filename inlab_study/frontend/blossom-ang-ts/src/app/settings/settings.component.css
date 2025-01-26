@@ -6,10 +6,14 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 6vh 2vw;
+  padding: 1vh 1vw;
+  padding-top: 10vh;
+  margin-left: 5vw;
   text-align: center;
-  width: 100vw;
+  width: 100%;
   margin: 0;
+  margin-top: 2vh;
+  overflow-x: hidden;
 }
 
 .led-slider, .behavior-slider
@@ -172,7 +176,7 @@ h2 {
   position: relative;
   z-index: 1001;
   font-size: clamp(18px, 2vw, 24px);
-  margin: 1.5vh 0;
+  margin: 0.8vh 0;
 }
 
 p {
@@ -183,7 +187,7 @@ p {
 }
 
 .save-button {
-  margin: 10px;
+  margin: 1vh auto;
   padding: 10px 20px;
   background-color: #4CAF50; /*green for save*/
   color: white;
