@@ -23,26 +23,40 @@ def wheel(pos):
         pos -= 170
         return (0, pos * 3, 255 - pos * 3)
 
-# Function to show the rainbow moving across the strip
+# Function to show the rainbow wiping across the strip
 def move_rainbow():
     # Total number of steps for the rainbow to move across (from start to end)
     num_steps = num_pixels - 20
     delay_per_step = 2.0 / num_steps  # Total time to move divided by number of steps
     
     for _ in range(5):  # Repeat the animation 5 times
-        # Move the rainbow across the strip
+        # First phase: Wipe onto the strip from pixel 0
+        for step in range(20):  # 20 steps to fill the 20-pixel rainbow
+            # Clear the strip
+            pixels.fill((0, 0, 0))
+            
+            # Apply rainbow effect to the current growing segment
+            for i in range(step + 1):  # Gradually fill up to step+1 pixels
+                color = wheel(int(i * 255 / 19))  # Map index to color
+                pixels[i] = color
+            
+            # Update the strip to show the colors
+            pixels.show()
+            
+            # Wait before moving to the next step
+            time.sleep(0.1)
+        
+        # Second phase: Move and wipe off the strip
         for step in range(num_steps):
             # Clear the strip
             pixels.fill((0, 0, 0))
             
-            # Determine the start and end position for the current rainbow segment
-            start_pixel = step
-            end_pixel = start_pixel + 20
-            
-            # Apply rainbow effect to the current 20 pixels
-            for i in range(start_pixel, end_pixel):
-                color = wheel(int((i - start_pixel) * 255 / 19))  # Map index to color
-                pixels[i] = color
+            # Start with the rainbow at the left and move it right
+            # Apply rainbow effect to the 20 pixels
+            for i in range(20):
+                color = wheel(int(i * 255 / 19))  # Map index to color
+                if 0 <= step + i < num_pixels:  # Ensure we don't exceed the number of pixels
+                    pixels[step + i] = color
             
             # Update the strip to show the colors
             pixels.show()
