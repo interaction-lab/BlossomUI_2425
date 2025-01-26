@@ -46,16 +46,16 @@ export class SettingsComponent implements OnInit {
   }
 
   colorPreferences: ColorPreferences = {
-    red: false,
-    rose: false,
-    magenta: false,
-    purple: false,
-    blue: false,
-    cyan: false,
-    green: false,
-    lime: false,
-    yellow: false,
-    orange: false
+    red: true,
+    rose: true,
+    magenta: true,
+    purple: true,
+    blue: true,
+    cyan: true,
+    green: true,
+    lime: true,
+    yellow: true,
+    orange: true
   };
 
   participantId: string = ''; // Store the participant ID
@@ -171,7 +171,7 @@ export class SettingsComponent implements OnInit {
         (settings) => {
           // Map the response to component properties
           this.brightnessValue = settings.brightness || 100;
-          this.volumeValue = settings.volume || 100;
+          this.volumeValue = settings.volume || 15;
     
           // Map audio preferences
           this.audioPreferences = {
@@ -183,16 +183,16 @@ export class SettingsComponent implements OnInit {
     
           // Map color preferences
           this.colorPreferences = {
-            red: settings.colorPreferences?.red ?? false,
-            rose: settings.colorPreferencse?.rose ?? false,
-            magenta: settings.colorPreferences?.magenta ?? false,
-            lime: settings.colorPreferences?.lime ?? false,
-            cyan: settings.colorPreferences?.cyan ?? false,
-            orange: settings.colorPreferences?.orange ?? false,
-            yellow: settings.colorPreferences?.yellow ?? false,
-            green: settings.colorPreferences?.green ?? false,
-            blue: settings.colorPreferences?.blue ?? false,
-            purple: settings.colorPreferences?.purple ?? false
+            red: settings.colorPreferences?.red ?? true,
+            rose: settings.colorPreferencse?.rose ?? true,
+            magenta: settings.colorPreferences?.magenta ?? true,
+            lime: settings.colorPreferences?.lime ?? true,
+            cyan: settings.colorPreferences?.cyan ?? true,
+            orange: settings.colorPreferences?.orange ?? true,
+            yellow: settings.colorPreferences?.yellow ?? true,
+            green: settings.colorPreferences?.green ?? true,
+            blue: settings.colorPreferences?.blue ?? true,
+            purple: settings.colorPreferences?.purple ?? true
           };
     
           console.log('Loaded settings:', settings);

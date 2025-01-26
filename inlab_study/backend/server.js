@@ -72,9 +72,9 @@ app.post('/save-settings', (req, res) => {
       magenta = excluded.magenta,
       purple = excluded.purple,
       blue = excluded.blue,
-      blue = excluded.cyan,
+      cyan = excluded.cyan,
       green = excluded.green,
-      blue = excluded.lime,
+      lime = excluded.lime,
       yellow = excluded.yellow,
       orange = excluded.orange;
   `;
