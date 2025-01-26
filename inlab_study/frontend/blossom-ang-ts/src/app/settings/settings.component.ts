@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BrightnessService } from './brightness.service';
 import { VolumeService } from './volume.service';
+import { ParticipantIdService } from '../button/participant-id.service';
 
 interface AudioPreferences
 {
@@ -47,7 +48,14 @@ export class SettingsComponent implements OnInit {
     purple: false
   };
 
-  constructor(private brightnessService: BrightnessService, private volumeService: VolumeService, private http: HttpClient) { }
+  participantId: string = ''; // Store the participant ID
+
+  constructor(
+    private brightnessService: BrightnessService, 
+    private volumeService: VolumeService, 
+    private http: HttpClient,
+    private participantIdService: ParticipantIdService // Inject the ParticipantIdService
+  ) { }
 
   updateColorPreference(color: keyof ColorPreferences) 
   {
@@ -101,9 +109,13 @@ export class SettingsComponent implements OnInit {
   }
 
   onSaveChanges(): void {
-    const userId = 'user123'; // Replace with dynamic user ID when implemented
+    if (!this.participantId) {
+      console.error('Participant ID is missing.');
+      return;
+    }
+
     const settings = {
-      userId: userId,
+      userId: this.participantId,
       brightness: this.brightnessValue,
       volume: this.volumeValue,
       audioPreferences: this.audioPreferences,
@@ -136,39 +148,43 @@ export class SettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Replace with the actual user ID when needed
-    const userId = 'user123'; // Hardcoded for now
-  
-    this.http.get<any>(`http://localhost:3000/get-settings/${userId}`).subscribe(
-      (settings) => {
-        // Map the response to component properties
-        this.brightnessValue = settings.brightness || 100;
-        this.volumeValue = settings.volume || 100;
-  
-        // Map audio preferences
-        this.audioPreferences = {
-          animalSounds: settings.audioPreferences?.animalSounds ?? true,
-          digitalSounds: settings.audioPreferences?.digitalSounds ?? true,
-          hybridSounds: settings.audioPreferences?.hybridSounds ?? true,
-          vocalizations: settings.audioPreferences?.vocalizations ?? true
-        };
-  
-        // Map color preferences
-        this.colorPreferences = {
-          red: settings.colorPreferences?.red ?? false,
-          orange: settings.colorPreferences?.orange ?? false,
-          yellow: settings.colorPreferences?.yellow ?? false,
-          green: settings.colorPreferences?.green ?? false,
-          blue: settings.colorPreferences?.blue ?? false,
-          purple: settings.colorPreferences?.purple ?? false
-        };
-  
-        console.log('Loaded settings:', settings);
-      },
-      (error) => {
-        console.error('Error loading settings:', error);
-      }
-    );
+    this.participantIdService.participantId$.subscribe(id => {
+      this.participantId = id; // Store the participant ID when it's updated
+      console.log('Participant ID:', this.participantId);  // Log it for debugging
+    });
+
+    if (this.participantId) {
+      this.http.get<any>(`http://localhost:3000/get-settings/${this.participantId}`).subscribe(
+        (settings) => {
+          // Map the response to component properties
+          this.brightnessValue = settings.brightness || 100;
+          this.volumeValue = settings.volume || 100;
+    
+          // Map audio preferences
+          this.audioPreferences = {
+            animalSounds: settings.audioPreferences?.animalSounds ?? true,
+            digitalSounds: settings.audioPreferences?.digitalSounds ?? true,
+            hybridSounds: settings.audioPreferences?.hybridSounds ?? true,
+            vocalizations: settings.audioPreferences?.vocalizations ?? true
+          };
+    
+          // Map color preferences
+          this.colorPreferences = {
+            red: settings.colorPreferences?.red ?? false,
+            orange: settings.colorPreferences?.orange ?? false,
+            yellow: settings.colorPreferences?.yellow ?? false,
+            green: settings.colorPreferences?.green ?? false,
+            blue: settings.colorPreferences?.blue ?? false,
+            purple: settings.colorPreferences?.purple ?? false
+          };
+    
+          console.log('Loaded settings:', settings);
+        },
+        (error) => {
+          console.error('Error loading settings:', error);
+        }
+      );
+    }
   }
   
 }

@@ -1,6 +1,7 @@
 // button.component.ts
 import { Component } from '@angular/core';
 import { ButtonService } from './button.service';
+import { ParticipantIdService } from './participant-id.service';
 
 @Component({
   selector: 'app-button',
@@ -12,11 +13,17 @@ export class ButtonComponent {
   submitted: boolean = false;   // Flag to determine if submission is complete
   keypadVisible: boolean = false;  // Flag to control keypad visibility
 
-  constructor(private buttonService: ButtonService) {}
+  constructor(
+    private buttonService: ButtonService,
+    private participantIdService: ParticipantIdService
+  ) {}
+
 
   // This function handles the 'submit' button click
   submit() {
     if (this.participantId.trim()) {
+      this.participantIdService.setParticipantId(this.participantId);
+      
       // If the participant ID is not empty, mark it as submitted
       this.submitted = true;
       this.keypadVisible = false;  // Hide the keypad after submit
@@ -25,21 +32,18 @@ export class ButtonComponent {
     }
   }
 
-  // This function triggers when the input box is focused to show the keypad
   showKeypad() {
-    this.keypadVisible = true;  // Show the keypad when input box is focused
+    this.keypadVisible = true;
   }
 
-  // Handle key presses from the numeric keypad
   onKeyPress(key: string) {
     if (key === 'Delete') {
-      this.onDelete();  // Trigger the delete functionality if the key is 'Delete'
+      this.onDelete(); 
     } else {
-      this.participantId += key;  // Append the key to the participant ID
+      this.participantId += key; 
     }
   }
 
-  // Handle delete action from the numeric keypad
   onDelete() {
     this.participantId = this.participantId.slice(0, -1);  // Remove the last character
   }
