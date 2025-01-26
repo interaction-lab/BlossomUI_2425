@@ -60,11 +60,59 @@
             </label>
 
             <label class="color-checkbox-container">
+                <input type="checkbox"
+                        [checked] = "colorPreferences.rose"
+                        (change)="updateColorPreference('rose')">
+                <span class="color-checkbox rose"></span>
+                <span class = "color-label">Rose</span>
+            </label>
+
+            <label class="color-checkbox-container">
+                <input type="checkbox"
+                        [checked] = "colorPreferences.magenta"
+                        (change)="updateColorPreference('magenta')">
+                <span class="color-checkbox magenta"></span>
+                <span class = "color-label">Magenta</span>
+            </label>
+
+            <label class="color-checkbox-container">
                 <input type="checkbox" 
-                       [checked]="colorPreferences.orange"
-                       (change)="updateColorPreference('orange')">
-                <span class="color-checkbox orange"></span>
-                <span class="color-label">Orange</span>
+                       [checked]="colorPreferences.purple"
+                       (change)="updateColorPreference('purple')">
+                <span class="color-checkbox purple"></span>
+                <span class="color-label">Purple</span>
+            </label>
+
+            <label class="color-checkbox-container">
+                <input type="checkbox" 
+                       [checked]="colorPreferences.blue"
+                       (change)="updateColorPreference('blue')">
+                <span class="color-checkbox blue"></span>
+                <span class="color-label">Blue</span>
+            </label>
+
+            <label class="color-checkbox-container">
+                <input type="checkbox" 
+                       [checked]="colorPreferences.cyan"
+                       (change)="updateColorPreference('cyan')">
+                <span class="color-checkbox cyan"></span>
+                <span class="color-label">Cyan</span>
+            </label>
+
+            <label class="color-checkbox-container">
+                <input type="checkbox" 
+                       [checked]="colorPreferences.green"
+                       (change)="updateColorPreference('green')">
+                <span class="color-checkbox green"></span>
+                <span class="color-label">Green</span>
+            </label>
+
+            <label class = "color-checkbox-container">
+                <input type="checkbox"
+                        [checked] = "colorPreferences.chartreuse"
+                        (change)="updateColorPreference('chartreuse')">
+                <span class="color-checkbox chartreuse"></span>
+                <span class = "color-label">Lime</span>
             </label>
     
             <label class="color-checkbox-container">
@@ -74,30 +122,15 @@
                 <span class="color-checkbox yellow"></span>
                 <span class="color-label">Yellow</span>
             </label>
-    
+
             <label class="color-checkbox-container">
                 <input type="checkbox" 
-                       [checked]="colorPreferences.green"
-                       (change)="updateColorPreference('green')">
-                <span class="color-checkbox green"></span>
-                <span class="color-label">Green</span>
+                       [checked]="colorPreferences.orange"
+                       (change)="updateColorPreference('orange')">
+                <span class="color-checkbox orange"></span>
+                <span class="color-label">Orange</span>
             </label>
     
-            <label class="color-checkbox-container">
-                <input type="checkbox" 
-                       [checked]="colorPreferences.blue"
-                       (change)="updateColorPreference('blue')">
-                <span class="color-checkbox blue"></span>
-                <span class="color-label">Blue</span>
-            </label>
-    
-            <label class="color-checkbox-container">
-                <input type="checkbox" 
-                       [checked]="colorPreferences.purple"
-                       (change)="updateColorPreference('purple')">
-                <span class="color-checkbox purple"></span>
-                <span class="color-label">Purple</span>
-            </label>
         </div>
     </div>
 

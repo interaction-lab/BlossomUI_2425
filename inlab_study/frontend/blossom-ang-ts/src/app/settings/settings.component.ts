@@ -16,11 +16,15 @@ interface AudioPreferences
 interface ColorPreferences
 {
   red: boolean;
+  rose: boolean;
+  magenta: boolean;
+  purple: boolean;
   orange: boolean;
   yellow: boolean;
   green: boolean;
+  chartreuse: boolean;
   blue: boolean;
-  purple: boolean;
+  cyan: boolean;
 }
 
 @Component({
@@ -43,6 +47,10 @@ export class SettingsComponent implements OnInit {
 
   colorPreferences: ColorPreferences = {
     red: false,
+    rose: false,
+    magenta: false,
+    chartreuse: false,
+    cyan: false,
     orange: false,
     yellow: false,
     green: false,
@@ -176,6 +184,10 @@ export class SettingsComponent implements OnInit {
           // Map color preferences
           this.colorPreferences = {
             red: settings.colorPreferences?.red ?? false,
+            rose: settings.colorPreferencse?.rose ?? false,
+            magenta: settings.colorPreferences?.magenta ?? false,
+            chartreuse: settings.colorPreferences?.chartreuse ?? false,
+            cyan: settings.colorPreferences?.cyan ?? false,
             orange: settings.colorPreferences?.orange ?? false,
             yellow: settings.colorPreferences?.yellow ?? false,
             green: settings.colorPreferences?.green ?? false,
