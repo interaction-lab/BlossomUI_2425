@@ -84,7 +84,8 @@
 
 /* Make scrollbar more visible */
 .settings-panel::-webkit-scrollbar {
-   width: 8px;
+   /*width: 8px;*/
+   display: none; /*override to prevent showing up*/
 }
 
 .settings-panel::-webkit-scrollbar-track {
