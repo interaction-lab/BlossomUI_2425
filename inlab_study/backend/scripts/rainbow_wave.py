@@ -1,29 +1,46 @@
-# Function to show the rainbow wave effect
-def rainbow_wave():
-    # Length of the rainbow segment
-    rainbow_length = 15
-    
-    # We will loop for a duration of 5 seconds
-    start_time = time.time()
-    
-    while time.time() - start_time < 5:
-        # Move the rainbow down the strip
-        for i in range(num_pixels - rainbow_length):  # Ensure the rainbow fits within the strip
-            # Create the rainbow effect across 15 pixels
-            for j in range(rainbow_length):
-                color = wheel((j + i) % 255)  # Offset the color for each pixel
-                pixels[i + j] = color  # Set each pixel in the range
+import time
+import board
+import neopixel
 
-            # Fill the rest of the strip with black (to clear past pixels)
-            for k in range(i + rainbow_length, num_pixels):
-                pixels[k] = (0, 0, 0)
+# Number of LEDs in the strip
+num_pixels = 38
 
-            # Show the updated strip
-            pixels.show()
-            
-            # Control the speed of the movement
-            time.sleep(0.05)
+# GPIO pin connected to the DIN of the LED strip
+pixel_pin = board.D21
 
-    # Turn off the strip after the effect ends
+# Set up the LED strip
+pixels = neopixel.NeoPixel(pixel_pin, num_pixels, brightness=0.5, auto_write=False)
+
+# Function to generate rainbow colors
+def wheel(pos):
+    """Generate a color from the rainbow wheel."""
+    if pos < 85:
+        return (pos * 3, 255 - pos * 3, 0)
+    elif pos < 170:
+        pos -= 85
+        return (255 - pos * 3, 0, pos * 3)
+    else:
+        pos -= 170
+        return (0, pos * 3, 255 - pos * 3)
+
+# Function to display a rainbow in the middle 20 pixels
+def show_rainbow_middle():
+    # Set all pixels to off first
     pixels.fill((0, 0, 0))
+    
+    # Determine the start and end positions of the middle 20 pixels
+    start_pixel = (num_pixels - 20) // 2
+    end_pixel = start_pixel + 20
+    
+    # Apply rainbow effect to the middle 20 pixels
+    for i in range(start_pixel, end_pixel):
+        color = wheel(int((i - start_pixel) * 255 / 19))  # Map index to color
+        pixels[i] = color
+    
+    # Update the strip to show the colors
     pixels.show()
+
+# Example usage
+while True:
+    show_rainbow_middle()
+    time.sleep(0.1)
