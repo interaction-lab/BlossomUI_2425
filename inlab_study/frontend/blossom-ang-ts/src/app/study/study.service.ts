@@ -2,6 +2,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ParticipantIdService } from '../button/participant-id.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,11 +10,17 @@ import { Observable } from 'rxjs';
 export class StudyService {
   private apiUrl = 'http://localhost:3000/study_buttons'; // Updated API endpoint
 
-  constructor(private http: HttpClient) { 
-  }
+  constructor(
+    private http: HttpClient, 
+    private participantIdService: ParticipantIdService
+  ) {}
 
   pressStudyButton(buttonType: 'start' | 'pause' | 'end'): Observable<any> {
-    console.log('Service: Study button pressed:', buttonType); // Log for debugging
-    return this.http.post(`${this.apiUrl}/press`, { buttonType });
+    const participantId = this.participantIdService.getParticipantId();
+    if (!participantId) {
+      console.error('No participant ID set');
+    }
+    console.log('Service: Study button pressed:', { buttonType, participantId });
+    return this.http.post(`${this.apiUrl}/press`, { buttonType, participantId });
   }
 }

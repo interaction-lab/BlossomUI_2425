@@ -11,7 +11,7 @@ import sqlite3
 from blossom_multi_model_signals import perform_next_action_random
 from blossom_multi_model_signals import perform_random_action_constrained
 
-def get_settings():
+def get_settings(user_id):
     # Connect to the database
     conn = sqlite3.connect('../settings.db')
 
@@ -20,7 +20,7 @@ def get_settings():
 
     # Define the user_id you're looking for
     # TODO: get the current user's username
-    user_id = 'user123'  
+    # user_id = 'user123'  
 
     # find settings for the specified user_id
     cursor.execute("SELECT * FROM settings WHERE user_id = ?", (user_id,))
@@ -50,9 +50,9 @@ def end_handler():
     print("End button pressed!")
     return "End button pressed!"
 
-def ib_handler():
+def ib_handler(participant_id):
     print("Performing idle behavior")
-    settings = get_settings()
+    settings = get_settings(participant_id)
     perform_random_action_constrained(settings)
     # perform_next_action_random()
     return "Performing idle behavior"
@@ -89,6 +89,17 @@ def perform_trick_6():
 
 if __name__ == "__main__":
     import sys
+    if len(sys.argv) > 2:
+        button_type = sys.argv[1].lower()
+        participant_id = sys.argv[2]
+        if button_type == "start":
+            start_handler()
+        elif button_type == "idle_behavior":
+            ib_handler(participant_id)
+        elif button_type == "pause":
+            pause_handler()
+        elif button_type == "end":
+            end_handler()
     if len(sys.argv) > 1:
         button_type = sys.argv[1].lower()
         if button_type == "start":
@@ -97,8 +108,6 @@ if __name__ == "__main__":
             pause_handler()
         elif button_type == "end":
             end_handler()
-        elif button_type == "idle_behavior":
-            ib_handler()
         elif button_type == "trick_1":
             perform_trick_1()
         elif button_type == "trick_2":
@@ -111,3 +120,7 @@ if __name__ == "__main__":
             perform_trick_5()
         elif button_type == "trick_6":
             perform_trick_6()
+    
+
+
+    

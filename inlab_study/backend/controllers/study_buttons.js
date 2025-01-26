@@ -33,13 +33,17 @@ const getVolumeSetting = (userId, callback) => {
 
 exports.handleButtonPress = async (req, res) => {
     const buttonType = req.body.buttonType; // 'start' 'pause' or 'end'
-    const userId = 'user123';
+    const participantId = req.body.participantId; // Get participant_id from request body
     const scriptPath = path.join(__dirname, '..', 'scripts', 'study_script.py');
+
+    if (!participantId) {
+        return res.status(400).json({ error: 'Participant ID is missing.' });
+    }
 
     // Start periodic idle behavior on 'start'
     if (buttonType === 'start') {
         // Get volume setting from the database and adjust interval
-        getVolumeSetting(userId, (err, volume) => {
+        getVolumeSetting(participantId, (err, volume) => {
             if (err) {
                 return res.status(500).json({ error: 'Failed to fetch volume setting.' });
             }
@@ -49,8 +53,9 @@ exports.handleButtonPress = async (req, res) => {
 
             if (!intervalId) {
                 intervalId = setInterval(() => {
-                    exec(`python3 ${scriptPath} idle_behavior`, (error, stdout, stderr) => {
+                    exec(`python3 ${scriptPath} idle_behavior ${participantId}`, (error, stdout, stderr) => {
                         if (error) {
+                            console.log(`Idle behavior called: ${participantId}`);
                             console.error(`Idle behavior error: ${error.message}`);
                         } else {
                             console.log(`Idle behavior output: ${stdout}`);
