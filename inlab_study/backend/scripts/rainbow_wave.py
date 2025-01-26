@@ -46,18 +46,22 @@ def move_rainbow():
             # Wait before moving to the next step
             time.sleep(0.1)
         
-        # Second phase: Move and wipe off the strip
-        for step in range(num_steps):
+        # Second phase: Wipe off from the end (pixel 37) towards the start
+        for step in range(num_steps):  # Move the rainbow across the strip
             # Clear the strip
             pixels.fill((0, 0, 0))
             
-            # Start with the rainbow at the left and move it right
-            # Apply rainbow effect to the 20 pixels
+            # Apply rainbow effect to the current 20 pixels, moving right
             for i in range(20):
                 color = wheel(int(i * 255 / 19))  # Map index to color
                 if 0 <= step + i < num_pixels:  # Ensure we don't exceed the number of pixels
                     pixels[step + i] = color
             
+            # Wipe off the rainbow from the right side as it moves
+            for i in range(20):
+                if step + i >= num_pixels:
+                    pixels[num_pixels - 1 - i] = (0, 0, 0)  # Turn off the pixel
+
             # Update the strip to show the colors
             pixels.show()
             
