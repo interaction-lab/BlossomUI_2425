@@ -10,11 +10,22 @@ import { SettingsService } from '../settings/settings.service';
 })
 export class NavSidebarComponent implements OnInit {
   showSettingsButton = false;
+  currentRoute: string = '';
 
   constructor(private router: Router, 
-              private settingsService: SettingsService) 
-  {}
+              private settingsService: SettingsService)
+  {
+    router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.currentRoute = event.url;
+      }
+    });
+  }
 
+  isButtonDisabled(route: string): boolean {
+    return this.currentRoute == route;
+  }
+  
   toggleSettings() {
     this.settingsService.toggleSettings();
   }

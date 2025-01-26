@@ -1,6 +1,7 @@
-/* Make sure the background color of the entire page is purple */
+/*make sure the background color of the entire page is purple */
 :host {
-    display: block;
+    display: grid; /*removes extra space at bottom --> change 
+    BACK to BLOCK if you'd like -- sanya 01_26_25*/
     background-color: #d1c7e0; /* Darker purple */
     min-height: 100vh; /* Full height */
     width: 100%;
@@ -20,6 +21,8 @@ body {
     width: 100%;
     max-width: 800px;
     margin: 0 auto;
+    display: grid;
+    align-items: center;
 }
 
 /* Menu styles */

@@ -1,8 +1,8 @@
 <div class="navbar">
-    <button *ngIf="showSettingsButton" class="nav-button" (click)="toggleSettings()">
+    <button [disabled] = "isButtonDisabled('/settings')" class="nav-button" (click)="toggleSettings()">
         <mat-icon>settings</mat-icon>
     </button>
-    <button class="nav-button" routerLink="/landing">
+    <button [disabled] = "isButtonDisabled('/landing')" class="nav-button" routerLink="/landing">
         <mat-icon>home</mat-icon>
     </button>
 </div>

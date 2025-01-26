@@ -1,6 +1,6 @@
 .settings-container 
 {
-  /*min-height: 100vh;
+  min-height: 100vh;
   box-sizing: border-box;
   overflow-y: auto;
   display: flex;
@@ -8,14 +8,13 @@
   justify-content: center;
   padding: 200px;
   height: 100vh; 
-  text-align: center;*/
+  text-align: center;
   padding: 2vh 2vw;
 }
 
-.brightness-slider,
-.volume-slider {
-  width: 40%;  /* Adjust the width to your preference, or use a fixed pixel value */
-  max-width: 60px; /* Increase the max-width for a wider slider */
+.brightness-slider, .volume-slider {
+  width: 80%;
+  /*max-width: 60px;*/ /*increase the max-width for a wider slider*/
   margin-top: 10px;
   margin-bottom: 10px;
 }

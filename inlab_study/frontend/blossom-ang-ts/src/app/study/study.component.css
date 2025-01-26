@@ -3,14 +3,15 @@
     width: 100vw;
     height: 100vh;
     background-color: #b2daef;
-    display: grid;
+    /*display: grid;*/
     grid-template-columns: 2fr 1fr;
     gap: 20px;
     padding: 20px;
     box-sizing: border-box;
 }
 
-.main-content {
+.main-content 
+{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -20,19 +21,19 @@
 
 .timer-display
 {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 110px;
 }
 
 .time 
 {
-    display: flex;
+    /*display: flex;*/
     flex-direction: row;
     align-items: center;
-    font-size: clamp(40px, 5vw, 65px); /* Responsive font size */
+    font-size: clamp(55px, 5vw, 65px); /* responsive font size */
 }
 
 #menu 
@@ -70,9 +71,12 @@
     background: rgba(255, 255, 255, 0.95);
     border-radius: 10px;
     padding: 2vh 2vw;
-    height: 95vh;
-    width: 95%;
+    height: 90vh;
+    width: 70vw;
     overflow-y: auto;
+    position: fixed; /*fixed the position relative to the viewport*/
+    top: 5%; /*position from top*/
+    left: 20%; /*position from left*/
 }
 
 /* Make scrollbar more visible */
@@ -89,7 +93,7 @@
    border-radius: 4px;
 }
 
-/* Responsive adjustments */
+/* responsive adjustments */
 @media (max-width: 768px) {
     .studypage {
         grid-template-columns: 1fr;
