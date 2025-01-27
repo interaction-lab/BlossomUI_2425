@@ -105,19 +105,19 @@ exports.handleButtonPress = async (req, res) => {
         }
     }
 
-    // Execute the primary Python command for the button press
-    exec(`python3 ${scriptPath} ${buttonType}`, (error, stdout, stderr) => {
-        if (error) {
-            console.error(`Error: ${error}`);
-            return res.status(500).json({ error: error.message });
-        }
-        console.log(`Python output: ${stdout}`);
-        res.json({
-            success: true,
-            message: `${buttonType.toUpperCase()} button pressed!`,
-            output: stdout
-        });
-    });
+    // // Execute the primary Python command for the button press
+    // exec(`python3 ${scriptPath} ${buttonType}`, (error, stdout, stderr) => {
+    //     if (error) {
+    //         console.error(`Error: ${error}`);
+    //         return res.status(500).json({ error: error.message });
+    //     }
+    //     console.log(`Python output: ${stdout}`);
+    //     res.json({
+    //         success: true,
+    //         message: `${buttonType.toUpperCase()} button pressed!`,
+    //         output: stdout
+    //     });
+    // });
 };
 
 
