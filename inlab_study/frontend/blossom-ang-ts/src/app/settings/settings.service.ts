@@ -24,14 +24,6 @@ export class SettingsService {
     );
   }
 
-  /*getBehaviorFrequency(): Observable<number> {
-    return this.http.get<number>(`${this.apiUrl}/behavior-frequency`);
-  }*/
-
-  /*getBehaviorFrequency(): number {
-    return 100;  // Return a fixed number of seconds
-  }*/
-
   toggleSettings() {
     this.showSettingsSource.next(!this.showSettingsSource.value);
   }

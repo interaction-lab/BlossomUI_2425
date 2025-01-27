@@ -96,39 +96,37 @@ startTimer() {
     }
   }
 
-    endTimer() 
-    {
-      //clear all intervals FIRST
-      this.interval$?.unsubscribe();
-      this.behaviorInterval$?.unsubscribe();
-      this.isRunning = false;  // Important to set this before other operations
-      
-      this.timeRemain = this.INITIAL_TIME;
-      this.updateDisplay();
-
-      if (this.completed_session) {
-          // Add a small delay before session complete behavior
-          setTimeout(() => {
-              this.studyService.pressStudyButton('session_complete').subscribe(
-                  response => {
-                      console.log('Session complete button pressed:', response);
-                      this.completed_session = false;  // Reset completed flag after handling
-                  },
-                  error => {
-                      console.error('Error pressing Session Complete button:', error);
-                  }
-              );
-          }, 1000);
-      } else {
-          this.studyService.pressStudyButton('end').subscribe(
-              response => {
-                  console.log('End button pressed:', response);
-              },
-              error => {
-                  console.error('Error pressing End button:', error);
-              }
-          );
-      }
+  //endTimer() hopefully fixed for ending
+  endTimer() {
+    //clear all intervals FIRST
+    this.interval$?.unsubscribe();
+    this.behaviorInterval$?.unsubscribe();
+    this.isRunning = false;  // Important to set this before other operations
+  
+    this.timeRemain = this.INITIAL_TIME;
+    this.updateDisplay();
+  
+    if (this.completed_session) {
+      // Use the 'end' button type instead of 'session_complete'
+      this.studyService.pressStudyButton('end').subscribe(
+        response => {
+          console.log('Session complete button pressed:', response);
+          this.completed_session = false;  // Reset completed flag after handling
+        },
+        error => {
+          console.error('Error pressing Session Complete button:', error);
+        }
+      );
+    } else {
+      this.studyService.pressStudyButton('end').subscribe(
+        response => {
+          console.log('End button pressed:', response);
+        },
+        error => {
+          console.error('Error pressing End button:', error);
+        }
+      );
+    }
   }
 
   private updateDisplay() {
