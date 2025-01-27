@@ -108,7 +108,7 @@ motor_movements_list = [bc.sigh, bc.idle_gaze, bc.posture_sway]
 
 def perform_random_action_constrained(settings):
     user_id, brightness, volume, animal_sounds, digital_sounds, hybrid_sounds, \
-    vocalizations, red, rose, magenta, purple, blue, cyan, green, lime, yellow, orange, sessions_completed = settings
+    vocalizations, red, rose, magenta, purple, blue, cyan, green, lime, yellow, orange = settings
 
     valid_sounds = []
 
