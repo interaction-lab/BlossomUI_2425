@@ -69,34 +69,31 @@ export class StudyComponent implements OnInit
     }
   }
   
-  endTimer() {
+  endTimer() 
+  {
     this.pauseTimer();
-    this.timeRemain = this.INITIAL_TIME; //start from the highest, end at lowest
+    this.timeRemain = this.INITIAL_TIME;
     this.updateDisplay();
+ 
+    if (this.completed_session) 
+    {
+        this.studyService.pressStudyButton('session_complete').subscribe
+        (
+            response => 
+              {
+                console.log('Session complete button pressed:', response); //move this inside the subscribe callback
+                setTimeout(() => {
+                    this.completed_session = false;
+                }, 3000); //wait 3 s after the behavior completes
+            },
 
-    if (this.completed_session) {
-      this.studyService.pressStudyButton('session_complete').subscribe( // Call the service
-        response => {
-          console.log('Session complete button pressed:', response); // Log success
-          this.completed_session = false;
-        },
-        error => {
-          console.error('Error pressing Session Complete button:', error); // Log error
-        }
-      );
+            error => 
+            {
+                console.error('Error pressing Session Complete button:', error);
+            }
+        );
     }
-    
-    if (this.timeRemain <= 10) {
-      this.studyService.pressStudyButton('end').subscribe( // Call the service to signal end
-        response => {
-          console.log('End button pressed:', response); // Log success
-        },
-        error => {
-          console.error('Error pressing End button:', error); // Log error
-        }
-      );
-    }
-  }
+ }
 
   private updateDisplay() {
     const hours = Math.floor(this.timeRemain / 3600);
