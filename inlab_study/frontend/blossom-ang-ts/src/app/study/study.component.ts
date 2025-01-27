@@ -21,15 +21,7 @@ export class StudyComponent implements OnInit
   completed_session: boolean = false;
   participantId: string = ''; // Store the participant ID
 
-<<<<<<< Updated upstream
-  constructor(
-    private studyService: StudyService, 
-    private settingsService: SettingsService, 
-    private participantIdService: ParticipantIdService
-  ) 
-=======
   constructor(private studyService: StudyService, private settingsService: SettingsService, private participantIdService: ParticipantIdService) 
->>>>>>> Stashed changes
   {
     this.settingsService.showSettings$.subscribe(show => this.showSettings=show);
   } 
