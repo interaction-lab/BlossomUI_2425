@@ -15,7 +15,7 @@ export class StudyComponent implements OnInit
   timeRemain: number = this.INITIAL_TIME; //25 minutes left --> for inlab pilot
   display?: string = '00:25:00';
   interval$!: Subscription;
-  behaviorInterval$!: Subscription; // Property to store the behavior timer subscription
+  behaviorInterval$?: Subscription; // Property to store the behavior timer subscription
   isRunning: boolean = false;
   completed_session: boolean = false;
 
@@ -34,61 +34,77 @@ export class StudyComponent implements OnInit
         
         // Start the timer countdown
         this.interval$ = interval(1000).subscribe(() => {
-            if (this.timeRemain > 0) {
+            if (this.timeRemain > 0) 
+            {
                 this.timeRemain--;
                 this.updateDisplay();
-            } else {
+            } 
+
+            else {
                 this.completed_session = true;
                 this.endTimer();
             }
         });
 
-        // Set up separate interval for robot behaviors
-        this.behaviorInterval$ = interval(this.settingsService.getBehaviorFrequency() * 1000)
-            .subscribe(() => {
-                this.studyService.pressStudyButton('start').subscribe();
-            });
+        // Trigger first behavior immediately
+        this.studyService.pressStudyButton('idle_behavior').subscribe();
+
+        setTimeout(() => 
+        {
+          this.behaviorInterval$ = interval(this.settingsService.getBehaviorFrequency() * 1000)
+              .subscribe(() => {
+                  if (this.isRunning) {  // Check if still running
+                      this.studyService.pressStudyButton('idle_behavior').subscribe();
+                  }
+              });
+        }, 1000);
     }
 }
 
-  pauseTimer() {
+  pauseTimer() 
+  {
     if (this.isRunning) {
       this.interval$.unsubscribe();
+      this.behaviorInterval$?.unsubscribe();  // Add this line
       this.isRunning = false;
 
-      this.studyService.pressStudyButton('pause').subscribe( // Call the service
-        response => {
-          console.log('Pause button pressed:', response); // Log success
-        },
-        error => {
-          console.error('Error pressing Pause button:', error); // Log error
-        }
-      );
+      this.studyService.pressStudyButton('pause').subscribe();
     }
   }
 
-  endTimer() 
-  {
-    this.pauseTimer();
-    this.timeRemain = this.INITIAL_TIME;
-    this.updateDisplay();
+    endTimer() 
+    {
+      //clear all intervals FIRST
+      this.interval$?.unsubscribe();
+      this.behaviorInterval$?.unsubscribe();
+      this.isRunning = false;  // Important to set this before other operations
+      
+      this.timeRemain = this.INITIAL_TIME;
+      this.updateDisplay();
 
-    if (this.completed_session) {
-        // Unsubscribe from behavior interval to stop idle behaviors
-        if (this.behaviorInterval$) {
-            this.behaviorInterval$.unsubscribe();
-        }
-
-        //call session complete with end-of-session behavior
-        this.studyService.pressStudyButton('session_complete').subscribe(
-            response => {
-                console.log('Session complete button pressed:', response);
-            },
-            error => {
-                console.error('Error pressing Session Complete button:', error);
-            }
-        );
-    }
+      if (this.completed_session) {
+          // Add a small delay before session complete behavior
+          setTimeout(() => {
+              this.studyService.pressStudyButton('session_complete').subscribe(
+                  response => {
+                      console.log('Session complete button pressed:', response);
+                      this.completed_session = false;  // Reset completed flag after handling
+                  },
+                  error => {
+                      console.error('Error pressing Session Complete button:', error);
+                  }
+              );
+          }, 1000);
+      } else {
+          this.studyService.pressStudyButton('end').subscribe(
+              response => {
+                  console.log('End button pressed:', response);
+              },
+              error => {
+                  console.error('Error pressing End button:', error);
+              }
+          );
+      }
   }
 
   private updateDisplay() {
@@ -103,9 +119,16 @@ export class StudyComponent implements OnInit
     return num.toString().padStart(2, '0');
   }
 
-  ngOnDestroy() {
-    if (this.interval$) {
+  ngOnDestroy() 
+  {
+    if (this.interval$) 
+      {
       this.interval$.unsubscribe();
+    }
+
+    if (this.behaviorInterval$) 
+      {
+      this.behaviorInterval$.unsubscribe();
     }
   }
 }

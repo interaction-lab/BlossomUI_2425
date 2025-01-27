@@ -15,10 +15,11 @@ export class StudyService {
     private participantIdService: ParticipantIdService
   ) {}
 
-  pressStudyButton(buttonType: 'start' | 'pause' | 'end' | 'session_complete'): Observable<any> {
+  // study.service.ts
+  pressStudyButton(buttonType: 'start' | 'pause' | 'end' | 'session_complete' | 'idle_behavior'): Observable<any> {
     const participantId = this.participantIdService.getParticipantId();
     if (!participantId) {
-      console.error('No participant ID set');
+        console.error('No participant ID set');
     }
     console.log('Service: Study button pressed:', { buttonType, participantId });
     return this.http.post(`${this.apiUrl}/press`, { buttonType, participantId });
