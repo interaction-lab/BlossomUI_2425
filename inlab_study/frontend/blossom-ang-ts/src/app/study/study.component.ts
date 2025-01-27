@@ -15,6 +15,7 @@ export class StudyComponent implements OnInit
   timeRemain: number = this.INITIAL_TIME; //25 minutes left --> for inlab pilot
   display?: string = '00:25:00';
   interval$!: Subscription;
+  behaviorInterval$!: Subscription; // Property to store the behavior timer subscription
   isRunning: boolean = false;
   completed_session: boolean = false;
 
@@ -31,21 +32,22 @@ export class StudyComponent implements OnInit
     if (!this.isRunning) {
         this.isRunning = true;
         
-        // Execute behavior immediately
-        this.studyService.pressStudyButton('start').subscribe();
-        
-        // Start interval after behavior
-        setTimeout(() => {
-            this.interval$ = interval(1000).subscribe(() => {
-                if (this.timeRemain > 0) {
-                    this.timeRemain--;
-                    this.updateDisplay();
-                } else {
-                    this.completed_session = true;
-                    this.endTimer();
-                }
+        // Start the timer countdown
+        this.interval$ = interval(1000).subscribe(() => {
+            if (this.timeRemain > 0) {
+                this.timeRemain--;
+                this.updateDisplay();
+            } else {
+                this.completed_session = true;
+                this.endTimer();
+            }
+        });
+
+        // Set up separate interval for robot behaviors
+        this.behaviorInterval$ = interval(this.settingsService.getBehaviorFrequency() * 1000)
+            .subscribe(() => {
+                this.studyService.pressStudyButton('start').subscribe();
             });
-        }, 1000);
     }
 }
 
@@ -64,32 +66,30 @@ export class StudyComponent implements OnInit
       );
     }
   }
-  
+
   endTimer() 
   {
     this.pauseTimer();
     this.timeRemain = this.INITIAL_TIME;
     this.updateDisplay();
- 
-    if (this.completed_session) 
-    {
-        this.studyService.pressStudyButton('session_complete').subscribe
-        (
-            response => 
-              {
-                console.log('Session complete button pressed:', response); //move this inside the subscribe callback
-                setTimeout(() => {
-                    this.completed_session = false;
-                }, 3000); //wait 3 s after the behavior completes
-            },
 
-            error => 
-            {
+    if (this.completed_session) {
+        // Unsubscribe from behavior interval to stop idle behaviors
+        if (this.behaviorInterval$) {
+            this.behaviorInterval$.unsubscribe();
+        }
+
+        //call session complete with end-of-session behavior
+        this.studyService.pressStudyButton('session_complete').subscribe(
+            response => {
+                console.log('Session complete button pressed:', response);
+            },
+            error => {
                 console.error('Error pressing Session Complete button:', error);
             }
         );
     }
- }
+  }
 
   private updateDisplay() {
     const hours = Math.floor(this.timeRemain / 3600);

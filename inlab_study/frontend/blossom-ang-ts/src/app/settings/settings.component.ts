@@ -37,6 +37,7 @@ export class SettingsComponent implements OnInit {
 
   brightnessValue: number = 100;
   volumeValue: number = 100;
+  behaviorFrequency: number = 100;
 
   audioPreferences: AudioPreferences = {
     animalSounds: true,
@@ -67,6 +68,12 @@ export class SettingsComponent implements OnInit {
     private participantIdService: ParticipantIdService,
     private settingsService: SettingsService
   ) { }
+
+  updateBehaviorFrequency(event: any) 
+  {
+    this.behaviorFrequency = parseInt(event.target.value); //add parseInt
+    this.settingsService.setBehaviorFrequency(this.behaviorFrequency);
+  }
 
   updateColorPreference(color: keyof ColorPreferences) 
   {
@@ -130,7 +137,8 @@ export class SettingsComponent implements OnInit {
       brightness: this.brightnessValue,
       volume: this.volumeValue,
       audioPreferences: this.audioPreferences,
-      colorPreferences: this.colorPreferences
+      colorPreferences: this.colorPreferences, 
+      behaviorFrequency: this.behaviorFrequency //added for behavior pref
     };
   
     this.http.post('http://localhost:3000/save-settings', settings).subscribe({
@@ -172,6 +180,7 @@ export class SettingsComponent implements OnInit {
           // Map the response to component properties
           this.brightnessValue = settings.brightness || 100;
           this.volumeValue = settings.volume || 15;
+          this.behaviorFrequency = settings.behaviorFrequency || 100; //adding for behavior freq
     
           // Map audio preferences
           this.audioPreferences = {
