@@ -46,6 +46,8 @@ vocalizations_sound_list = [
 "/home/blossom/blossom-public/personalization/final_sounds_new_categories/human_vocables/YOURE_WELCOME.wav"
 ]
 
+bc = BlossomController()
+
 # Light definitions
 R = (255, 0, 0)
 S = (255, 0, 128)
