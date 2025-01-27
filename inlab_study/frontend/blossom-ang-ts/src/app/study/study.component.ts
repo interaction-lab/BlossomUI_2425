@@ -21,11 +21,15 @@ export class StudyComponent implements OnInit
   completed_session: boolean = false;
   participantId: string = ''; // Store the participant ID
 
+<<<<<<< Updated upstream
   constructor(
     private studyService: StudyService, 
     private settingsService: SettingsService, 
     private participantIdService: ParticipantIdService
   ) 
+=======
+  constructor(private studyService: StudyService, private settingsService: SettingsService, private participantIdService: ParticipantIdService) 
+>>>>>>> Stashed changes
   {
     this.settingsService.showSettings$.subscribe(show => this.showSettings=show);
   } 
@@ -56,26 +60,38 @@ startTimer() {
       });
 
       // Fetch behaviorFrequency and set up idle behavior
-      const userId = 1; // Replace with the actual user ID
-      this.settingsService.getBehaviorFrequency(Number(this.participantId)).subscribe({
-        next: (freq: number) => {
-          console.log('Using frequency:', freq);
-          this.behaviorInterval$ = interval(freq * 1000).subscribe(() => {
-            if (this.isRunning) {
-              this.studyService.pressStudyButton('idle_behavior').subscribe({
-                error: (error: any) => console.error('Error triggering idle behavior:', error),
+      this.participantIdService.participantId$.subscribe(userId => {
+        if (userId) {
+          this.settingsService.getBehaviorFrequency(Number(userId)).subscribe({
+            next: (freq: number) => {
+              console.log('Using frequency:', freq);
+              this.behaviorInterval$ = interval(freq * 1000).subscribe(() => {
+                if (this.isRunning) {
+                  this.studyService.pressStudyButton('idle_behavior').subscribe({
+                    error: (error: any) => console.error('Error triggering idle behavior:', error),
+                  });
+                }
               });
-            }
+            },
+            error: (error: any) => {
+              console.error('Error fetching behavior frequency:', error);
+              // Use a default frequency value or display a message to the user
+              this.behaviorInterval$ = interval(100 * 1000).subscribe(() => {
+                if (this.isRunning) {
+                  this.studyService.pressStudyButton('idle_behavior').subscribe({
+                    error: (error: any) => console.error('Error triggering idle behavior:', error),
+                  });
+                }
+              });
+            },
           });
-        },
-        error: (error: any) => {
-          console.error('Error fetching behavior frequency:', error);
-        },
+        } else {
+          console.error('Participant ID is not available');
+        }
       });
     });
   }
 }
-
 
   pauseTimer() 
   {
