@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
 import { StudyService } from './study.service'; // Import StudyServic
 import { SettingsService } from '../settings/settings.service';
+import { ParticipantIdService } from '../button/participant-id.service';
 
 @Component({
   selector: 'app-study',
@@ -18,13 +19,22 @@ export class StudyComponent implements OnInit
   behaviorInterval$ ?: Subscription; // Property to store the behavior timer subscription
   isRunning: boolean = false;
   completed_session: boolean = false;
+  participantId: string = ''; // Store the participant ID
 
-  constructor(private studyService: StudyService, private settingsService: SettingsService) 
+  constructor(
+    private studyService: StudyService, 
+    private settingsService: SettingsService, 
+    private participantIdService: ParticipantIdService
+  ) 
   {
     this.settingsService.showSettings$.subscribe(show => this.showSettings=show);
   } 
 
   ngOnInit(): void {
+    this.participantIdService.participantId$.subscribe(id => {
+      this.participantId = id; // Store the participant ID when it's updated
+      console.log('Participant ID:', this.participantId);  // Log it for debugging
+    });
   }
 
 //startTimer() 
@@ -47,7 +57,7 @@ startTimer() {
 
       // Fetch behaviorFrequency and set up idle behavior
       const userId = 1; // Replace with the actual user ID
-      this.settingsService.getBehaviorFrequency(userId).subscribe({
+      this.settingsService.getBehaviorFrequency(Number(this.participantId)).subscribe({
         next: (freq: number) => {
           console.log('Using frequency:', freq);
           this.behaviorInterval$ = interval(freq * 1000).subscribe(() => {
