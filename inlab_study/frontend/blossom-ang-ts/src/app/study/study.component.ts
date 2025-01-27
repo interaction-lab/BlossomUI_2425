@@ -27,61 +27,45 @@ export class StudyComponent implements OnInit
   ngOnInit(): void {
   }
 
-  //functions for the timer
-  startTimer() {
-    if (!this.isRunning) {
-        this.isRunning = true;
-        
-        // Record start button press first
-        this.studyService.pressStudyButton('start').subscribe(() => {
-            // After recording start, begin behaviors and timer
-            
-            // Start the timer countdown
-            this.interval$ = interval(1000).subscribe(() => {
-                if (this.timeRemain > 0) {
-                    this.timeRemain--;
-                    this.updateDisplay();
-                } else {
-                    this.completed_session = true;
-                    this.endTimer();
-                }
-            });
+//startTimer() 
+startTimer() {
+  if (!this.isRunning) {
+    this.isRunning = true;
 
-            // Trigger first idle behavior immediately 
-            //this.studyService.pressStudyButton('idle_behavior').subscribe();
+    // Record start button press
+    this.studyService.pressStudyButton('start').subscribe(() => {
+      // Start timer countdown
+      this.interval$ = interval(1000).subscribe(() => {
+        if (this.timeRemain > 0) {
+          this.timeRemain--;
+          this.updateDisplay();
+        } else {
+          this.completed_session = true;
+          this.endTimer();
+        }
+      });
 
-            this.studyService.pressStudyButton('idle_behavior').subscribe({
-              error: (error) => console.error('Error triggering idle behavior:', error)
-            });
-
-            // Set up recurring idle behaviors
-            /*setTimeout(() => {
-                const freq = this.settingsService.getBehaviorFrequency();
-                console.log('Using frequency:', freq);
-                this.behaviorInterval$ = interval(freq * 1000)
-                    .subscribe(() => {
-                        if (this.isRunning) {
-                            this.studyService.pressStudyButton('idle_behavior').subscribe();
-                        }
-                    });
-            }, 1000);*/
-
-            setTimeout(() => {
-              this.settingsService.getBehaviorFrequency()
-              
-              /*.subscribe(freq => {
-                  console.log('Using frequency:', freq);
-                  this.behaviorInterval$ = interval(freq * 1000)
-                      .subscribe(() => {
-                          if (this.isRunning) {
-                              this.studyService.pressStudyButton('idle_behavior').subscribe();
-                          }
-                      });
-              });*/
-          }, 1000);
-        });
-    }
+      // Fetch behaviorFrequency and set up idle behavior
+      const userId = 1; // Replace with the actual user ID
+      this.settingsService.getBehaviorFrequency(userId).subscribe({
+        next: (freq: number) => {
+          console.log('Using frequency:', freq);
+          this.behaviorInterval$ = interval(freq * 1000).subscribe(() => {
+            if (this.isRunning) {
+              this.studyService.pressStudyButton('idle_behavior').subscribe({
+                error: (error: any) => console.error('Error triggering idle behavior:', error),
+              });
+            }
+          });
+        },
+        error: (error: any) => {
+          console.error('Error fetching behavior frequency:', error);
+        },
+      });
+    });
   }
+}
+
 
   pauseTimer() 
   {
