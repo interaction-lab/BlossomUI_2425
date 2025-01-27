@@ -11,7 +11,7 @@ import { SettingsService } from '../settings/settings.service';
 export class StudyComponent implements OnInit 
 {
   showSettings = false;
-  readonly INITIAL_TIME = 2 * 60;
+  readonly INITIAL_TIME = 25 * 60; //25 minutes in seconds
   timeRemain: number = this.INITIAL_TIME; //25 minutes left --> for inlab pilot
   display?: string = '00:25:00';
   interval$!: Subscription;
@@ -27,31 +27,27 @@ export class StudyComponent implements OnInit
   }
 
   //functions for the timer:
-  startTimer()
-  {
-    if (!this.isRunning)
-    {
-      this.isRunning = true;
-      this.studyService.pressStudyButton('start').subscribe( // Call the service
-        response => {
-          console.log('Start button pressed:', response); // Log success
-        },
-        error => {
-          console.error('Error pressing Start button:', error); // Log error
-        }
-      );
-
-      this.interval$ = interval(1000).subscribe(() => {
-        if (this.timeRemain > 0) {
-          this.timeRemain--;
-          this.updateDisplay();
-        } else {
-          this.completed_session = true;
-          this.endTimer();
-        }
-      });
+  startTimer() {
+    if (!this.isRunning) {
+        this.isRunning = true;
+        
+        // Execute behavior immediately
+        this.studyService.pressStudyButton('start').subscribe();
+        
+        // Start interval after behavior
+        setTimeout(() => {
+            this.interval$ = interval(1000).subscribe(() => {
+                if (this.timeRemain > 0) {
+                    this.timeRemain--;
+                    this.updateDisplay();
+                } else {
+                    this.completed_session = true;
+                    this.endTimer();
+                }
+            });
+        }, 1000);
     }
-  }
+}
 
   pauseTimer() {
     if (this.isRunning) {
