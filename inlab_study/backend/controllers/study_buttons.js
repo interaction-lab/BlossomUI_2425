@@ -52,7 +52,16 @@ exports.handleButtonPress = async (req, res) => {
             const intervalInSeconds = volume; // Interval equals volume setting (e.g., 48 seconds)
 
             if (!intervalId) {
+                sessionEndTime = Date.now() + (this.INITIAL_TIME * 1000);
                 intervalId = setInterval(() => {
+                    // Check if we're within 10 seconds of the session end time
+                    if (Date.now() >= sessionEndTime - 10000) {
+                        console.log('Session is about to end, stopping idle behavior.');
+                        clearInterval(idleIntervalId);
+                        idleIntervalId = null;
+                        return; // Stop idle behavior
+                    }
+
                     exec(`python3 ${scriptPath} idle_behavior ${participantId}`, (error, stdout, stderr) => {
                         if (error) {
                             console.log(`Idle behavior called: ${participantId}`);
@@ -65,6 +74,29 @@ exports.handleButtonPress = async (req, res) => {
             }
         });
     }
+
+    // Handle the new 'session_complete' button press
+    else if (buttonType === 'session_complete') {
+        console.log(`Session completed for participant ${participantId}`);
+        
+        // Execute the Python script with 'session_complete' as an argument
+        exec(`python3 ${scriptPath} session_complete ${participantId}`, (error, stdout, stderr) => {
+            if (error) {
+                console.error(`Error executing session_complete script: ${error.message}`);
+                return res.status(500).json({ error: `Error executing session_complete script: ${error.message}` });
+            }
+
+            if (stderr) {
+                console.error(`Python script stderr: ${stderr}`);
+            }
+
+            console.log(`Python script stdout: ${stdout}`);
+
+        });
+
+    }
+
+
     // Stop periodic execution on 'pause' or 'end'
     else if (buttonType === 'pause' || buttonType === 'end') {
         if (intervalId) {
