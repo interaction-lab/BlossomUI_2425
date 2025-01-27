@@ -36,7 +36,6 @@ interface ColorPreferences
 export class SettingsComponent implements OnInit {
 
   brightnessValue: number = 100;
-  volumeValue: number = 100;
   behaviorFrequency: number = 100;
 
   audioPreferences: AudioPreferences = {
@@ -72,6 +71,7 @@ export class SettingsComponent implements OnInit {
   updateBehaviorFrequency(event: any) 
   {
     this.behaviorFrequency = parseInt(event.target.value); //add parseInt
+    console.log('New frequency:', this.behaviorFrequency); // Add this
     this.settingsService.setBehaviorFrequency(this.behaviorFrequency);
   }
 
@@ -105,27 +105,6 @@ export class SettingsComponent implements OnInit {
     );
   }
 
-  updateVolume(event: any)
-  {
-    this.volumeValue = event.target.value; 
-
-    this.volumeService.setVolume(this.volumeValue).subscribe(
-      response =>
-      {
-        console.log('success');
-      }, 
-
-      error =>
-      {
-        console.error('Full error:', {
-          status: error.status, 
-          message: error.message, 
-          error: error
-        });
-      }
-    );
-  }
-
   onSaveChanges(): void {
     if (!this.participantId) {
       console.error('Participant ID is missing.');
@@ -135,7 +114,6 @@ export class SettingsComponent implements OnInit {
     const settings = {
       userId: this.participantId,
       brightness: this.brightnessValue,
-      volume: this.volumeValue,
       audioPreferences: this.audioPreferences,
       colorPreferences: this.colorPreferences, 
       behaviorFrequency: this.behaviorFrequency //added for behavior pref
@@ -179,7 +157,6 @@ export class SettingsComponent implements OnInit {
         (settings) => {
           // Map the response to component properties
           this.brightnessValue = settings.brightness || 100;
-          this.volumeValue = settings.volume || 15;
           this.behaviorFrequency = settings.behaviorFrequency || 100; //adding for behavior freq
     
           // Map audio preferences
@@ -193,7 +170,7 @@ export class SettingsComponent implements OnInit {
           // Map color preferences
           this.colorPreferences = {
             red: settings.colorPreferences?.red ?? true,
-            rose: settings.colorPreference?.rose ?? true,
+            rose: settings.ColorPreferences?.rose ?? true,
             magenta: settings.colorPreferences?.magenta ?? true,
             lime: settings.colorPreferences?.lime ?? true,
             cyan: settings.colorPreferences?.cyan ?? true,

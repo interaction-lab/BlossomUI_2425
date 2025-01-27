@@ -47,22 +47,22 @@ const db = new sqlite3.Database('./settings.db', (err) => {
 
 // API Endpoints
 app.post('/save-settings', (req, res) => {
-  const { userId, brightness, volume, audioPreferences, colorPreferences } = req.body;
+  const { userId, brightness, behaviorFrequency, audioPreferences, colorPreferences } = req.body;
 
-  if (!userId || brightness === undefined || volume === undefined || !audioPreferences || !colorPreferences) {
+  if (!userId || brightness === undefined || behaviorFrequency === undefined || !audioPreferences || !colorPreferences) {
     return res.status(400).json({ error: 'Invalid request. Missing parameters.' });
   }
 
   const query = `
     INSERT INTO settings (
-      user_id, brightness, volume, 
+      user_id, brightness, behaviorFrequency, 
       animal_sounds, digital_sounds, hybrid_sounds, vocalizations,
       red, rose, magenta, purple, blue, cyan, green, lime, yellow, orange
     ) 
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ON CONFLICT(user_id) DO UPDATE SET
       brightness = excluded.brightness,
-      volume = excluded.volume,
+      behaviorFrequency = excluded.behaviorFrequency,
       animal_sounds = excluded.animal_sounds,
       digital_sounds = excluded.digital_sounds,
       hybrid_sounds = excluded.hybrid_sounds,
@@ -82,7 +82,7 @@ app.post('/save-settings', (req, res) => {
   const values = [
     userId,
     brightness,
-    volume,
+    behaviorFrequency,
     audioPreferences.animalSounds,
     audioPreferences.digitalSounds,
     audioPreferences.hybridSounds,
@@ -121,7 +121,7 @@ app.get('/get-settings/:userId', (req, res) => {
   const query = `
     SELECT 
       brightness, 
-      volume, 
+      behaviorFrequency, 
       animal_sounds, 
       digital_sounds, 
       hybrid_sounds, 
@@ -138,7 +138,7 @@ app.get('/get-settings/:userId', (req, res) => {
     if (row) {
       const settings = {
         brightness: row.brightness,
-        volume: row.volume,
+        behaviorFrequency: row.behaviorFrequency,
         audioPreferences: {
           animalSounds: row.animal_sounds,
           digitalSounds: row.digital_sounds,

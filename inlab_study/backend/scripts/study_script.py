@@ -1,17 +1,13 @@
 import sys
-import board
-import busio
-import adafruit_mpr121
-import time
-import random
-import pygame
+#import time
+#import random
 import sqlite3
 
-import blossom_multi_model_signals as blossom
+#import blossom_multi_model_signals as blossom
 
 def get_settings(user_id):
     # Connect to the database
-    conn = sqlite3.connect('../settings.db')
+    conn = sqlite3.connect('settings.db')
 
     # Create a cursor object to interact with the database
     cursor = conn.cursor()
@@ -51,7 +47,7 @@ def end_handler():
 def ib_handler(participant_id):
     print("Performing idle behavior")
     settings = get_settings(participant_id)
-    blossom.perform_random_action_constrained(settings)
+    #blossom.perform_random_action_constrained(settings)
     return "Performing idle behavior"
 
 def session_complete_handler():

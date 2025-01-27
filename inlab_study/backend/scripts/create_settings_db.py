@@ -15,7 +15,7 @@ cursor.execute('''
 CREATE TABLE IF NOT EXISTS settings (
     user_id INTEGER PRIMARY KEY,
     brightness INTEGER DEFAULT 100,
-    volume INTEGER DEFAULT 30,
+    behaviorFrequency INTEGER DEFAULT 30,
     animal_sounds BOOLEAN DEFAULT 1,
     digital_sounds BOOLEAN DEFAULT 1,
     hybrid_sounds BOOLEAN DEFAULT 1,
@@ -66,8 +66,8 @@ BEGIN
     SELECT NEW.user_id, 'brightness', OLD.brightness, NEW.brightness
     WHERE OLD.brightness != NEW.brightness;
     INSERT INTO settings_audit (user_id, column_name, old_value, new_value)
-    SELECT NEW.user_id, 'volume', OLD.volume, NEW.volume
-    WHERE OLD.volume != NEW.volume;
+    SELECT NEW.user_id, 'behaviorFrequency', OLD.behaviorFrequency, NEW.behaviorFrequency
+    WHERE OLD.behaviorFrequency != NEW.behaviorFrequency;
     INSERT INTO settings_audit (user_id, column_name, old_value, new_value)
     SELECT NEW.user_id, 'animal_sounds', OLD.animal_sounds, NEW.animal_sounds
     WHERE OLD.animal_sounds != NEW.animal_sounds;

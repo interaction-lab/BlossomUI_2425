@@ -15,11 +15,11 @@ const db = new sqlite3.Database('./settings.db', (err) => {
 let intervalId = null;
 
 // Function to get volume setting from the database
-const getVolumeSetting = (userId, callback) => {
-    const query = `SELECT volume FROM settings WHERE user_id = ?`;
+const getBehaviorFrequency = (userId, callback) => {
+    const query = `SELECT behaviorFrequency FROM settings WHERE user_id = ?`;
     db.get(query, [userId], (err, row) => {
         if (err) {
-            console.error('Error fetching volume setting:', err.message);
+            console.error('Error fetching behavior setting:', err.message);
             return callback(err, null);
         }
         if (row) {
@@ -31,7 +31,7 @@ const getVolumeSetting = (userId, callback) => {
     });
 };
 
-exports.handleButtonPress = async (req, res) => {
+/*exports.handleButtonPress = async (req, res) => {
     const buttonType = req.body.buttonType; // 'start' 'pause' or 'end'
     const participantId = req.body.participantId; // Get participant_id from request body
     const scriptPath = path.join(__dirname, '..', 'scripts', 'study_script.py');
@@ -43,13 +43,13 @@ exports.handleButtonPress = async (req, res) => {
     // Start periodic idle behavior on 'start'
     if (buttonType === 'start') {
         // Get volume setting from the database and adjust interval
-        getVolumeSetting(participantId, (err, volume) => {
+        getBehaviorFrequency(participantId, (err, behaviorFrequency) => {
             if (err) {
                 return res.status(500).json({ error: 'Failed to fetch volume setting.' });
             }
 
             // Set the interval equal to the volume (in seconds)
-            const intervalInSeconds = volume; // Interval equals volume setting (e.g., 48 seconds)
+            const intervalInSeconds = behaviorFrequency; // Interval equals volume setting (e.g., 48 seconds)
 
             if (!intervalId) {
                 sessionEndTime = Date.now() + (this.INITIAL_TIME * 1000);
@@ -118,6 +118,50 @@ exports.handleButtonPress = async (req, res) => {
     //         output: stdout
     //     });
     // });
+}*/
+
+// backend/controllers/buttons.js
+exports.handleButtonPress = async (req, res) => {
+    const buttonType = req.body.buttonType;
+    const participantId = req.body.participantId;
+    const scriptPath = path.join(__dirname, '..', 'scripts', 'study_script.py');
+
+    if (!participantId) {
+        return res.status(400).json({ error: 'Participant ID is missing.' });
+    }
+
+    // Execute the Python command based on button type
+    if (buttonType === 'idle_behavior') {
+        exec(`python3 ${scriptPath} idle_behavior ${participantId}`, (error, stdout, stderr) => {
+            if (error) {
+                console.error(`Error: ${error}`);
+                return res.status(500).json({ error: error.message });
+            }
+            console.log(`Idle behavior output: ${stdout}`);
+            res.json({ success: true });
+        });
+    } 
+    else if (buttonType === 'session_complete') {
+        exec(`python3 ${scriptPath} session_complete ${participantId}`, (error, stdout, stderr) => {
+            if (error) {
+                console.error(`Error: ${error}`);
+                return res.status(500).json({ error: error.message });
+            }
+            console.log(`Session complete output: ${stdout}`);
+            res.json({ success: true });
+        });
+    }
+    else {
+        // Handle start, pause, end buttons
+        exec(`python3 ${scriptPath} ${buttonType}`, (error, stdout, stderr) => {
+            if (error) {
+                console.error(`Error: ${error}`);
+                return res.status(500).json({ error: error.message });
+            }
+            console.log(`Button press output: ${stdout}`);
+            res.json({ success: true });
+        });
+    }
 };
 
 
