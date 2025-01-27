@@ -45,8 +45,11 @@ startTimer() {
         if (this.timeRemain > 0) {
           this.timeRemain--;
           this.updateDisplay();
+          if (this.timeRemain < 10){
+              this.behaviorInterval$?.unsubscribe();
+              this.completed_session = true;
+          }
         } else {
-          this.completed_session = true;
           this.endTimer();
         }
       });
