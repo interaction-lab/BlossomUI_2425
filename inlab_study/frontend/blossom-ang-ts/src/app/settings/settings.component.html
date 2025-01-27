@@ -14,9 +14,14 @@
     </div>
 
     <div class = "behavior-slider">
-        <h2>Behavior Frequency</h2> <!--volume section-->
-        <input type="range" min="10" max="60" [value]="volumeValue" (input)="updateVolume($event)">
-        <p>Blossom will move every {{volumeValue}} seconds</p>
+        <h2>Behavior Frequency</h2>
+        <input 
+          type="range" 
+          min="10" 
+          max="60" 
+          [value]="behaviorFrequency" 
+          (input)="updateBehaviorFrequency($event)">
+        <p>Blossom will move every {{behaviorFrequency}} seconds</p>
     </div>
     
     <div class="audio-preferences"> <!--audio preferences checkboxes-->
