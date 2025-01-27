@@ -8,9 +8,10 @@ import pygame
 import sqlite3
 
 # sys.path.insert(1, '/home/blossom/blossom-public')
-from blossom_multi_model_signals import perform_next_action_random
-from blossom_multi_model_signals import perform_random_action_constrained
-from blossom_multi_model_signals import end_of_session
+import blossom_multi_model_signals as blossom
+# from blossom_multi_model_signals import perform_next_action_random
+# from blossom_multi_model_signals import perform_random_action_constrained
+# from blossom_multi_model_signals import end_of_session
 
 def get_settings(user_id):
     # Connect to the database
@@ -54,44 +55,38 @@ def end_handler():
 def ib_handler(participant_id):
     print("Performing idle behavior")
     settings = get_settings(participant_id)
-    perform_random_action_constrained(settings)
-    # perform_next_action_random()
+    blossom.perform_random_action_constrained(settings)
     return "Performing idle behavior"
 
 def session_complete_handler():
     print("Performing end of session celebration")
-    settings = get_settings(participant_id)
-    end_of_session()
+    # settings = get_settings(participant_id)
+    blossom.end_of_session()
     return "Performing end of session celebration"
 
 def perform_trick_1():
     print("Performing Trick 1")
-    perform_next_action_random()
+    blossom.end_of_session()
     return "Trick 1 performed!"
 
 def perform_trick_2():
     print("Performing Trick 2")
-    perform_next_action_random()
     return "Trick 2 performed!"
 
 def perform_trick_3():
     print("Performing Trick 3")
-    perform_next_action_random()
     return "Trick 3 performed!"
 
 def perform_trick_4():
     print("Performing Trick 4")
-    perform_next_action_random()
     return "Trick 4 performed!"
 
 def perform_trick_5():
     print("Performing Trick 5")
-    perform_next_action_random()
     return "Trick 5 performed!"
 
 def perform_trick_6():
     print("Performing Trick 6")
-    perform_next_action_random()
     return "Trick 6 performed!"
 
 if __name__ == "__main__":
