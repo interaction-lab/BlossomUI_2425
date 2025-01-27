@@ -5,13 +5,16 @@ import neopixel
 # Number of LEDs in the strip
 num_pixels = 38
 
+# Number of pixels in the rainbow ribbon
+rainbow_length = 20
+
 # GPIO pin connected to the DIN of the LED strip
 pixel_pin = board.D21
 
 # Set up the LED strip
 pixels = neopixel.NeoPixel(pixel_pin, num_pixels, brightness=0.5, auto_write=False)
 
-# Function to generate rainbow colors
+# Function to generate rainbow colors (wheel function)
 def wheel(pos):
     """Generate a color from the rainbow wheel."""
     if pos < 85:
@@ -23,55 +26,28 @@ def wheel(pos):
         pos -= 170
         return (0, pos * 3, 255 - pos * 3)
 
-# Function to show the rainbow wiping across the strip
+# Function to display the moving rainbow
 def move_rainbow():
-    # Total number of steps for the rainbow to move across (from start to end)
-    num_steps = num_pixels - 20
-    delay_per_step = 2.0 / num_steps  # Total time to move divided by number of steps
-    
-    for _ in range(5):  # Repeat the animation 5 times
-        # First phase: Wipe onto the strip from pixel 0
-        for step in range(20):  # 20 steps to fill the 20-pixel rainbow
+    while True:
+        for step in range(num_pixels + rainbow_length):  # Total number of steps, including wraparound
             # Clear the strip
             pixels.fill((0, 0, 0))
-            
-            # Apply rainbow effect to the current growing segment
-            for i in range(step + 1):  # Gradually fill up to step+1 pixels
-                color = wheel(int(i * 255 / 19))  # Map index to color
-                pixels[i] = color
-            
+
+            # Set the rainbow effect for the 20 pixels (within bounds of the strip)
+            for i in range(rainbow_length):
+                # Calculate which pixel in the strip will get this color
+                pixel_pos = step + i - rainbow_length + 1
+
+                # Only color pixels within the bounds of the strip (0 to 37)
+                if 0 <= pixel_pos < num_pixels:
+                    color = wheel(int(i * 255 / rainbow_length))  # Generate color from rainbow
+                    pixels[pixel_pos] = color
+
             # Update the strip to show the colors
             pixels.show()
-            
-            # Wait before moving to the next step
+
+            # Wait before moving to the next step (speed of the rainbow movement)
             time.sleep(0.1)
-        
-        # Second phase: Wipe off from the end (pixel 37) towards the start
-        for step in range(num_steps):  # Move the rainbow across the strip
-            # Clear the strip
-            pixels.fill((0, 0, 0))
-            
-            # Apply rainbow effect to the current 20 pixels, moving right
-            for i in range(20):
-                color = wheel(int(i * 255 / 19))  # Map index to color
-                if 0 <= step + i < num_pixels:  # Ensure we don't exceed the number of pixels
-                    pixels[step + i] = color
-            
-            # Wipe off the rainbow from the right side as it moves
-            for i in range(20):
-                if step + i >= num_pixels:
-                    pixels[num_pixels - 1 - i] = (0, 0, 0)  # Turn off the pixel
 
-            # Update the strip to show the colors
-            pixels.show()
-            
-            # Wait before moving to the next step
-            time.sleep(delay_per_step)
-        
-        # After one full pass, clear the strip before starting again
-        pixels.fill((0, 0, 0))
-        pixels.show()
-        time.sleep(0.5)  # Pause for a short time before restarting the animation
-
-# Example usage
+# Start the rainbow movement
 move_rainbow()
