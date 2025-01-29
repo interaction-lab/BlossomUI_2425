@@ -17,6 +17,7 @@ export class StudyComponent implements OnInit
   display ?: string = '00:25:00';
   interval$ !: Subscription;
   behaviorInterval$ ?: Subscription; // Property to store the behavior timer subscription
+  isLoading: boolean = false;
   isRunning: boolean = false;
   completed_session: boolean = false;
   participantId: string = ''; // Store the participant ID
@@ -35,11 +36,17 @@ export class StudyComponent implements OnInit
 
 //startTimer() 
 startTimer() {
-  if (!this.isRunning) {
-    this.isRunning = true;
+  if (!this.isRunning && !this.isLoading) {
+    this.isLoading = true;
+
+    //add something to pop up a message for startup each time
 
     // Record start button press
     this.studyService.pressStudyButton('start').subscribe(() => {
+
+      this.isLoading = false; //within subscription, turn off loading
+      this.isRunning = true;  //keep the running on
+
       // Start timer countdown
       this.interval$ = interval(1000).subscribe(() => {
         if (this.timeRemain > 0) {

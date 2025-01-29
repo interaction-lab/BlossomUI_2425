@@ -103,3 +103,18 @@
         grid-template-columns: 1fr;
     }
 }
+
+.loading-overlay
+{   position: fixed;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(178, 218, 239, 0.9);  /* Same as your background with opacity */
+    padding: 20px;
+    border-radius: 10px;
+    z-index: 1002;  /* Make sure it's above other elements */
+}
+
+.hidden {
+    display: none;
+}
