@@ -170,7 +170,7 @@ export class SettingsComponent implements OnInit {
           // Map color preferences
           this.colorPreferences = {
             red: settings.colorPreferences?.red ?? true,
-            rose: settings.ColorPreferences?.rose ?? true,
+            rose: settings.colorPreferences?.rose ?? true,
             magenta: settings.colorPreferences?.magenta ?? true,
             lime: settings.colorPreferences?.lime ?? true,
             cyan: settings.colorPreferences?.cyan ?? true,
